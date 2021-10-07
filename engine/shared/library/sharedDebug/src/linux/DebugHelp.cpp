@@ -385,8 +385,8 @@ static bool dwarfSearch(char const *dwarfLines, unsigned int linesLength, void c
 				if (valid)
 				{
 					unsigned int addrOffset = 0;
-					if (progAddr < reinterpret_cast<unsigned int>(info.dli_fbase))
-						addrOffset = reinterpret_cast<unsigned int>(info.dli_fbase);
+					if (progAddr < reinterpret_cast<long unsigned int>(info.dli_fbase))
+						addrOffset = reinterpret_cast<long unsigned int>(info.dli_fbase);
 					const void *testAddr = reinterpret_cast<const void *>(progAddr+addrOffset);
 					if (testAddr >= addr)
 					{
@@ -509,12 +509,12 @@ static bool stabSearch(Stab const *stab, unsigned int stabSize, char const *stab
 			if (reinterpret_cast<void const *>(stab->n_value) > info.dli_fbase)
 				funcBase = reinterpret_cast<void const *>(stab->n_value);
 			else
-				funcBase = reinterpret_cast<void const *>(reinterpret_cast<unsigned int>(info.dli_fbase)+stab->n_value);
+				funcBase = reinterpret_cast<void const *>(reinterpret_cast<long unsigned int>(info.dli_fbase)+stab->n_value);
 			foundSrcLine = -1;
 		}
 		else if (stab->n_type == N_SLINE && addr >= funcBase) // source line
 		{
-			if (stab->n_value < reinterpret_cast<unsigned int>(addr)-reinterpret_cast<unsigned int>(funcBase))
+			if (stab->n_value < reinterpret_cast<long unsigned int>(addr)-reinterpret_cast<long unsigned int>(funcBase))
 				foundSrcLine = stab->n_desc;
 			else
 			{

@@ -38,7 +38,7 @@ namespace Base
 
 		target.assign((const char *)buf, (const char *)(buf + size));
 
-		const unsigned int readSize                = size * sizeof(char);
+		const uint32_t readSize                = size * sizeof(char);
 		source.advance(readSize);
 	}
 

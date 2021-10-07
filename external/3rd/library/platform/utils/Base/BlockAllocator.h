@@ -16,8 +16,8 @@ namespace Base
 	public:
 		BlockAllocator();
 		~BlockAllocator();
-		void *getBlock(unsigned accum);
-		void returnBlock(unsigned *handle);
+		void *getBlock(long unsigned accum);
+		void returnBlock(long unsigned *handle);
 
 	private:
 		uintptr_t  *m_blocks[31];

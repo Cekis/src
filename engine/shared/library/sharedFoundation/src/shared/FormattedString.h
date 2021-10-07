@@ -39,7 +39,7 @@ inline FormattedString<bufferSize>::FormattedString()
 }
 
 //-----------------------------------------------------------------------------
-template <int bufferSize>
+template <int32_t bufferSize>
 inline char const * FormattedString<bufferSize>::sprintf(char const * const format, ...)
 {
 	char const * result = nullptr;
@@ -55,7 +55,7 @@ inline char const * FormattedString<bufferSize>::sprintf(char const * const form
 }
 
 // ----------------------------------------------------------------------
-template <int bufferSize>
+template <int32_t bufferSize>
 inline char const * FormattedString<bufferSize>::vsprintf(char const * const format, va_list const & va)
 {
 	// Format the string
