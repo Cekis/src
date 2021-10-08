@@ -1083,7 +1083,7 @@ int countDots(const std::string &str)
 
 //-----------------------------------------------------------------------
 
-void ChatServer::createRoom(const NetworkId & id, const unsigned int sequence, const std::string & roomName, const bool isModerated, const bool isPublic, const std::string & title)
+void ChatServer::createRoom(const NetworkId & id, const uint64_t sequence, const std::string & roomName, const bool isModerated, const bool isPublic, const std::string & title)
 {
 	if(roomName.empty())
 		return;
@@ -1393,7 +1393,7 @@ void ChatServer::disconnectPlayer(const NetworkId & id)
 
 //-----------------------------------------------------------------------
 
-void ChatServer::enterRoom(const NetworkId & id, const unsigned int sequence, const unsigned int roomId)
+void ChatServer::enterRoom(const NetworkId & id, const uint64_t sequence, const unsigned int roomId)
 {
 	ChatServer::fileLog(s_enableChatRoomLogs, "ChatServer", "enterRoom() id(%s) sequence(%u) roomId(%u)", id.getValueString().c_str(), sequence, roomId);
 
@@ -1456,7 +1456,7 @@ void ChatServer::putSystemAvatarInRoom(const std::string & roomName)
 
 //-----------------------------------------------------------------------
 
-void ChatServer::enterRoom(const NetworkId & id, const unsigned int sequence, const std::string & roomName)
+void ChatServer::enterRoom(const NetworkId & id, const uint64_t sequence, const std::string & roomName)
 {
 	ChatServer::fileLog(s_enableChatRoomLogs, "ChatServer", "enterRoom() id(%s) sequence(%u) roomName(%s)", id.getValueString().c_str(), sequence, roomName.c_str());
 
@@ -1759,7 +1759,7 @@ void ChatServer::removeSystemAvatarFromRoom(const ChatRoom *room)
 
 //-----------------------------------------------------------------------
 
-void ChatServer::leaveRoom(const NetworkId & id, const unsigned int sequence, const unsigned int roomId)
+void ChatServer::leaveRoom(const NetworkId & id, const uint64_t sequence, const unsigned int roomId)
 {
 	ChatServer::fileLog(s_enableChatRoomLogs, "ChatServer", "leaveRoom() id(%s) sequence(%u) roomId(%u)", id.getValueString().c_str(), sequence, roomId);
 
@@ -1945,7 +1945,7 @@ void ChatServer::kickAvatarFromRoom(const NetworkId & id, const ChatAvatarId & a
 
 //-----------------------------------------------------------------------
 
-void ChatServer::queryRoom(const NetworkId & id, ConnectionServerConnection * connection, const unsigned int sequence, const std::string & roomName)
+void ChatServer::queryRoom(const NetworkId & id, ConnectionServerConnection * connection, const uint64_t sequence, const std::string & roomName)
 {
 	ChatServer::fileLog(s_enableChatRoomLogs, "ChatServer", "queryRoom() id(%s) roomName(%s)", id.getValueString().c_str(), roomName.c_str());
 
@@ -1954,7 +1954,7 @@ void ChatServer::queryRoom(const NetworkId & id, ConnectionServerConnection * co
 
 //-----------------------------------------------------------------------
 
-void ChatServer::requestPersistentMessage(const NetworkId &id, const unsigned int sequence, const unsigned int messageId)
+void ChatServer::requestPersistentMessage(const NetworkId &id, const uint64_t sequence, const unsigned int messageId)
 {
 	ChatServer::fileLog(false, "ChatServer", "requestPersistentMessage() id(%s) sequence(%u) messageId(%u)", id.getValueString().c_str(), sequence, messageId);
 
@@ -2039,7 +2039,7 @@ void ChatServer::sendInstantMessage(const ChatAvatarId & from, const ChatAvatarI
 
 //-----------------------------------------------------------------------
 
-void ChatServer::sendInstantMessage(const NetworkId & fromId, const unsigned int sequence, const ChatAvatarId & n, const Unicode::String & message, const Unicode::String & oob)
+void ChatServer::sendInstantMessage(const NetworkId & fromId, const uint64_t sequence, const ChatAvatarId & n, const Unicode::String & message, const Unicode::String & oob)
 {
 	canonicalizeAvatarId(n);
 	ChatServer::fileLog(false, "ChatServer", "sendInstantMessage() fromId(%s) sequence(%u) toName(%s)", fromId.getValueString().c_str(), sequence, n.getFullName().c_str());
@@ -2177,7 +2177,7 @@ void ChatServer::sendPersistentMessage(const ChatAvatarId & from, const ChatAvat
 
 //-----------------------------------------------------------------------
 
-void ChatServer::sendPersistentMessage(const NetworkId & fromId, const unsigned int sequenceId, const ChatAvatarId & to, const Unicode::String & subject, const Unicode::String & message, const Unicode::String & oob)
+void ChatServer::sendPersistentMessage(const NetworkId & fromId, const uint64_t sequenceId, const ChatAvatarId & to, const Unicode::String & subject, const Unicode::String & message, const Unicode::String & oob)
 {
 	canonicalizeAvatarId(to);
 
@@ -2272,7 +2272,7 @@ void ChatServer::sendRoomMessage(const ChatAvatarId &id, const std::string & roo
 
 //-----------------------------------------------------------------------
 
-void ChatServer::sendRoomMessage(const NetworkId & id, const unsigned int sequence, const unsigned int roomId, const Unicode::String &msg, const Unicode::String & oob)
+void ChatServer::sendRoomMessage(const NetworkId & id, const uint64_t sequence, const unsigned int roomId, const Unicode::String &msg, const Unicode::String & oob)
 {
 	if(!msg.empty() || !oob.empty())
 	{
