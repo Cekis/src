@@ -208,7 +208,7 @@ PathSearchNode * PathSearchNode::getSearchNode( PathNode const * node )
 
 	PathSearchNode * searchNode = nullptr;
 
-	int mark = node->getMark(3);
+	int64_t mark = node->getMark(3);
 
 	if(mark != -1)
 	{
@@ -493,7 +493,7 @@ void PathSearch::cleanup ( void )
 	{
 		PathNode const * visitedNode = m_visitedNodes->at(i);
 
-		int mark = visitedNode->getMark(3);
+		int64_t mark = visitedNode->getMark(3);
 
 		if(mark != -1)
 		{

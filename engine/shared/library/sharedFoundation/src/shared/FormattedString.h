@@ -19,7 +19,7 @@ public:
 	FormattedString();
 
 	char const * sprintf(char const * format, ...);
-	char const * vsprintf(char const * format, va_list const & va);
+	char const * vsprintf(char const * format, va_list va);
 
 private:
 
@@ -39,7 +39,7 @@ inline FormattedString<bufferSize>::FormattedString()
 }
 
 //-----------------------------------------------------------------------------
-template <int32_t bufferSize>
+template <int bufferSize>
 inline char const * FormattedString<bufferSize>::sprintf(char const * const format, ...)
 {
 	char const * result = nullptr;
@@ -55,8 +55,8 @@ inline char const * FormattedString<bufferSize>::sprintf(char const * const form
 }
 
 // ----------------------------------------------------------------------
-template <int32_t bufferSize>
-inline char const * FormattedString<bufferSize>::vsprintf(char const * const format, va_list const & va)
+template <int bufferSize>
+inline char const * FormattedString<bufferSize>::vsprintf(char const * const format, va_list va)
 {
 	// Format the string
 

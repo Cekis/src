@@ -100,7 +100,7 @@ public:
 
 	void                    snapToTerrain       ( void );
 
-	int                     getNeighborCode     ( void ) const;
+	int64_t                 getNeighborCode     ( void ) const;
 	void                    setNeighborCode     ( int newCode );
 	
 protected:
