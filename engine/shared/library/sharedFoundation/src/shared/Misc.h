@@ -226,11 +226,11 @@ inline void imemcpy(void *destination, const void *source, int length)
  * @param length  Number of bytes to copy
  */
 
-inline void *memmove(void *destination, const void *source, int32_t length)
+inline void *memmove(void *destination, const void *source, int length)
 {
 	DEBUG_FATAL(!destination, ("nullptr destination arg"));
 	DEBUG_FATAL(!source, ("nullptr source arg"));
-	return memmove(destination, source, static_cast<int32_t>(length));
+	return memmove(destination, source, static_cast<size_t>(length));
 }
 
 // ----------------------------------------------------------------------
