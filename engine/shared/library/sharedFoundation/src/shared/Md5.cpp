@@ -43,7 +43,7 @@ bool Md5::Value::operator !=(Value const &rhs) const
 
 // ----------------------------------------------------------------------
 
-void Md5::Value::format(char *buffer, int bufferLength) const
+void Md5::Value::format(char *buffer, int32 bufferLength) const
 {
 	//not referenced in release build
 	UNREF(bufferLength);
@@ -60,7 +60,7 @@ Md5::Value Md5::calculate(const char *string)
 
 // ----------------------------------------------------------------------
 
-Md5::Value Md5::calculate(void const *data, int length)
+Md5::Value Md5::calculate(void const *data, int32 length)
 {
 	Md5 md5;
 	md5.update(data, length);
@@ -94,7 +94,7 @@ void Md5::reset()
 
 // ----------------------------------------------------------------------
 
-void Md5::update(void const *data, int length)
+void Md5::update(void const *data, int32 length)
 {
 	m_totalLength += length;
 
@@ -111,7 +111,7 @@ void Md5::update(void const *data, int length)
 		else
 		{
 			// figure out how many bytes to copy into the temp buffer
-			int bytesToCopy = BUFFER_SIZE - m_bufferedBytes;
+			int32 bytesToCopy = BUFFER_SIZE - m_bufferedBytes;
 			if (length < bytesToCopy)
 				bytesToCopy = length;
 

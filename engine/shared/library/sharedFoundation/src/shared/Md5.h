@@ -33,7 +33,7 @@ public:
 
 		bool operator ==(Value const &rhs) const;
 		bool operator !=(Value const &rhs) const;
-		void format(char *buffer, int bufferLength) const;
+		void format(char *buffer, int32 bufferLength) const;
 
 		void *getData();
 
@@ -45,14 +45,14 @@ public:
 public:
 
 	static Value calculate(const char *string);
-	static Value calculate(const void *data, int len);
+	static Value calculate(const void *data, int32 len);
 
 public:
 
 	Md5();
 
 	void  reset();	
-	void  update(void const *data, int len);
+	void  update(void const *data, int32 len);
 	void  finish();
 	Value getValue() const;
 
@@ -75,11 +75,11 @@ private:
 		BUFFER_SIZE = 64
 	};
 
-	uint32 m_data[4];
-	byte   m_buffer[BUFFER_SIZE];
-	int    m_bufferedBytes;
-	int    m_totalLength;
-	bool   m_finished;
+	uint32   m_data[4];
+	byte     m_buffer[BUFFER_SIZE];
+	int32    m_bufferedBytes;
+	int32    m_totalLength;
+	bool     m_finished;
 
 public:
 

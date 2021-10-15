@@ -31,10 +31,10 @@ public:
 	DataTableColumnType const &getDataTypeForColumn(const std::string& column) const;
 	DataTableColumnType const &getDataTypeForColumn(int column) const;
 
-	int                 getIntValue(const std::string & column, int row) const;
-	int                 getIntValue(int column, int row) const;
-	int                 getIntDefaultForColumn(const std::string & column) const;
-	int                 getIntDefaultForColumn(int column) const;
+	int32_t             getIntValue(const std::string & column, int row) const;
+	int32_t             getIntValue(int column, int row) const;
+	int32_t             getIntDefaultForColumn(const std::string & column) const;
+	int32_t             getIntDefaultForColumn(int column) const;
 	float               getFloatValue(const std::string & column, int row) const;
 	float               getFloatValue(int column, int row) const;
 	float               getFloatDefaultForColumn(const std::string & column) const;
@@ -44,11 +44,11 @@ public:
 	std::string         getStringDefaultForColumn(const std::string & column) const;
 	std::string         getStringDefaultForColumn(int column) const;
 
-	void                getIntColumn(const std::string& column, std::vector<int>& returnVector) const;
+	void                getIntColumn(const std::string& column, std::vector<int32_t>& returnVector) const;
 	void                getIntColumn(const std::string& column, std::vector<long>& returnVector) const;
 	void                getFloatColumn(const std::string& column, std::vector<float>& returnVector) const;
 	void                getStringColumn(const std::string& column, std::vector<const char *>& returnVector) const;
-	void                getIntColumn(int column, std::vector<int>& returnVector) const;
+	void                getIntColumn(int column, std::vector<int32_t>& returnVector) const;
 	void                getIntColumn(int column, std::vector<long>& returnVector) const;
 	void                getFloatColumn(int column, std::vector<float>& returnVector) const;
 	void                getStringColumn(int column, std::vector<const char *>& returnVector) const;
@@ -86,8 +86,8 @@ private:
 	typedef std::vector<const DataTableColumnType *> DataTableColumnTypeVector;
 	typedef std::unordered_map<std::string /*column name*/, int /*column index*/> ColumnIndexMap;
 
-	int                           m_numRows;
-	int                           m_numCols;
+	int32_t                       m_numRows;
+	int32_t                       m_numCols;
 	DataTableCell const *         m_cells;
 	std::vector<std::string>      m_columns;
 	mutable std::vector<void *>   m_index;

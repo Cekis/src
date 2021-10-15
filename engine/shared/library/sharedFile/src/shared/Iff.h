@@ -64,12 +64,12 @@ private:
 
 	char  *fileName;
 
-	int    maxStackDepth;
-	int    stackDepth;
-	Stack *stack;
+	uint32    maxStackDepth;
+	uint32    stackDepth;
+	Stack    *stack;
 
-	int    length;
-	byte  *data;
+	uint32    length;
+	byte     *data;
 
 	bool   inChunk;
 	bool   growable;
@@ -78,16 +78,16 @@ private:
 
 private:
 
-	Tag  getFirstTag(int depth) const;
-	int  getLength(int depth, int offset=0) const;
-	Tag  getSecondTag(int depth) const;
-	Tag  getBlockName(int depth) const;
+	Tag     getFirstTag(int32 depth) const;
+	int32   getLength(int32 depth, int32 offset=0) const;
+	Tag     getSecondTag(int32 depth) const;
+	Tag     getBlockName(int32 depth) const;
 	
-	void fatal(const char *string) const;
-	void read_misc(void *data, int length);
-	void growStackAsNeeded(void);
-	void adjustDataAsNeeded(int size);
-	int  calculateRawDataSize(void) const;
+	void  fatal(const char *string) const;
+	void  read_misc(void *data, uint32 length);
+	void  growStackAsNeeded(void);
+	void  adjustDataAsNeeded(int32 size);
+	int32 calculateRawDataSize(void) const;
 
 	bool enterForm(Tag name, bool validateName, bool optional);
 	bool enterChunk(Tag name, bool validateName, bool optional);
@@ -102,9 +102,9 @@ public:
 public:
 
 	Iff(void);
-	Iff(int newDataSize, const byte *newData, bool iffOwnsData=true);
+	Iff(int32 newDataSize, const byte *newData, bool iffOwnsData=true);
 	explicit Iff(const char *fileName, bool optional=false);
-	explicit Iff(int initialSize, bool growable=true, bool clearDataBuffer=false);
+	explicit Iff(int32 initialSize, bool growable=true, bool clearDataBuffer=false);
 	~Iff(void);
 
 	const char* getFileName (void) const;
@@ -120,15 +120,15 @@ public:
 
 	// raw data retrieval
 	const byte *getRawData(void) const;
-	int         getRawDataSize(void) const;
+	int32       getRawDataSize(void) const;
 
-	void formatLocation(char *buffer, int bufferLength) const;
+	void formatLocation(char *buffer, int32 bufferLength) const;
 
 	// creating forms and chunk
 	void insertIff(const Iff *iff);
 	void insertForm(Tag name, bool shouldEnterForm=true);
 	void insertChunk(Tag name, bool shouldEnterChunk=true);
-	void insertChunkData(const void *data, int length);
+	void insertChunkData(const void *data, int32 length);
 	void insertChunkString(const char *string);
 	void insertChunkString(const Unicode::String & str);
 	void insertChunkFloatVector(const Vector &vector);
@@ -136,7 +136,7 @@ public:
 	void insertChunkFloatTransform(const Transform &transform);
 	void insertChunkFloatQuaternion(const Quaternion &quaternion);
 
-	template <class T> void insertChunkArray(T const * array, int size)
+	template <class T> void insertChunkArray(T const * array, int32 size)
 	{
 		insertChunkData(array,sizeof(T) * size);
 	}
@@ -147,26 +147,26 @@ public:
 	}
 
 	// delete data from the chunk data
-	void deleteChunkData(int length);
+	void deleteChunkData(int32 length);
 
 	// nonlinear functions
 	void allowNonlinearFunctions(void);
-	void seekWithinChunk(int offset, SeekType seekType);
+	void seekWithinChunk(int32 offset, SeekType seekType);
 	void goToTopOfForm(void);
 
 	// get information on current block	
 	Tag  getCurrentName(void) const;
-	int  getCurrentLength(void) const;
+	int32  getCurrentLength(void) const;
 	bool isCurrentChunk(void) const;
 	bool isCurrentForm(void) const;
 	bool atEndOfForm(void) const;
 
 	// get the number of blocks left in the current enclosing form	
-	int getNumberOfBlocksLeft(void) const;
+	int32 getNumberOfBlocksLeft(void) const;
 
 	// get information about the number of bytes in the current chunk
-	int getChunkLengthTotal(int elementSize=1) const;
-	int getChunkLengthLeft(int elementSize=1) const;
+	int32 getChunkLengthTotal(int32 elementSize=1) const;
+	int32 getChunkLengthLeft(int32 elementSize=1) const;
 
 	// enter/exit forms
 	void enterForm(void);
@@ -240,7 +240,7 @@ public:
 	uint32 *readRest_uint32(void);
 	char   *readRest_char  (void);
 
-	void  read_string(char *string, int maxLength);
+	void  read_string(char *string, int32 maxLength);
 	char *read_string(void);
 
 	void        read_string(std::string &string);
@@ -274,7 +274,7 @@ inline const char* Iff::getFileName (void) const
 //
 //   Iff:getRawData()
 
-inline int Iff::getRawDataSize(void) const
+inline int32 Iff::getRawDataSize(void) const
 {
 	if (!data || !stack)
 		return 0;
@@ -1164,13 +1164,13 @@ inline void Iff::readRest_char(char *array, int numberOfElements)
  * will call Fatal in debug compiles, but its behavior is undefined in release
  * compiles.
  * 
- * @return Dyanmically allocated array containing the data
+ * @return Dynamically allocated array containing the data
  * @see Iff::read_*()
  */
 
 inline int8 *Iff::readRest_int8(void)
 {
-	const int    count = getChunkLengthLeft(isizeof(int8));
+	const int32    count = getChunkLengthLeft(isizeof(int8));
 	int8 *const  array = new int8[static_cast<size_t>(count)];
 	read_int8(count, array);
 	return array;
@@ -1198,7 +1198,7 @@ inline int8 *Iff::readRest_int8(void)
 
 inline int16 *Iff::readRest_int16(void)
 {
-	const int     count = getChunkLengthLeft(isizeof(int16));
+	const int32   count = getChunkLengthLeft(isizeof(int16));
 	int16 * const array = new int16[static_cast<size_t>(count)];
 	read_int16(count, array);
 	return array;
@@ -1226,7 +1226,7 @@ inline int16 *Iff::readRest_int16(void)
 
 inline int32 *Iff::readRest_int32(void)
 {
-	const int     count = getChunkLengthLeft(isizeof(int32));
+	const int32   count = getChunkLengthLeft(isizeof(int32));
 	int32 * const array = new int32[static_cast<size_t>(count)];
 	read_int32(count, array);
 	return array;
@@ -1254,7 +1254,7 @@ inline int32 *Iff::readRest_int32(void)
 
 inline uint8 *Iff::readRest_uint8(void)
 {
-	const int     count = getChunkLengthLeft(isizeof(uint8));
+	const int32   count = getChunkLengthLeft(isizeof(uint8));
 	uint8 * const array = new uint8[static_cast<size_t>(count)];
 	read_uint8(count, array);
 	return array;
@@ -1282,7 +1282,7 @@ inline uint8 *Iff::readRest_uint8(void)
 
 inline uint16 *Iff::readRest_uint16(void)
 {
-	const int      count = getChunkLengthLeft(isizeof(uint16));
+	const int32    count = getChunkLengthLeft(isizeof(uint16));
 	uint16 * const array = new uint16[static_cast<size_t>(count)];
 	read_uint16(count, array);
 	return array;
@@ -1310,7 +1310,7 @@ inline uint16 *Iff::readRest_uint16(void)
 
 inline uint32 *Iff::readRest_uint32(void)
 {
-	const int      count = getChunkLengthLeft(isizeof(uint32));
+	const int32    count = getChunkLengthLeft(isizeof(uint32));
 	uint32 * const array = new uint32[static_cast<size_t>(count)];
 	read_uint32(count, array);
 	return array;
@@ -1338,7 +1338,7 @@ inline uint32 *Iff::readRest_uint32(void)
 
 inline char *Iff::readRest_char(void)
 {
-	const int    count = getChunkLengthLeft(isizeof(char));
+	const int32  count = getChunkLengthLeft(isizeof(char));
 	char * const array = new char[static_cast<size_t>(count)];
 	read_char(count, array);
 	return array;

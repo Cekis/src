@@ -148,7 +148,7 @@ DataTableColumnType::DataTableColumnType(std::string const &desc) :
 			std::string::size_type endPos = enumList.find(',');
 			std::string label = enumList.substr(0, eqPos);
 			std::string val = enumList.substr(eqPos+1, endPos-eqPos-1);
-			(*m_enumMap)[label] = static_cast<int>(strtol(val.c_str(), nullptr, 0));
+			(*m_enumMap)[label] = static_cast<uint32>(strtol(val.c_str(), nullptr, 0));
 			enumList.erase(0, endPos+1);
 		}
 		// assure the default is a member of the enumeration
@@ -213,7 +213,7 @@ DataTableColumnType::DataTableColumnType(std::string const &desc) :
 		{
 			std::string key = enumTable->getStringValue(0, x);
 			Unicode::trim(key);
-			int value = enumTable->getIntValue(1,x);
+			uint32 value = enumTable->getIntValue(1,x);
 			if (x==0)
 				firstKey = key;
 			(*m_enumMap)[key] = value;
@@ -247,7 +247,7 @@ void DataTableColumnType::createDefaultCell()
 	switch(m_basicType)
 	{
 	case DT_Int:
-		m_defaultCell = new DataTableCell(static_cast<int>(strtol(value.c_str(), nullptr, 0)));
+		m_defaultCell = new DataTableCell(static_cast<int32>(strtol(value.c_str(), nullptr, 0)));
 		break;
 	case DT_Float:
 		m_defaultCell = new DataTableCell(static_cast<float>(atof(value.c_str())));
@@ -327,7 +327,6 @@ DataTableColumnType::DataType DataTableColumnType::getBasicType() const
 }
 
 // ----------------------------------------------------------------------
-
 bool DataTableColumnType::lookupEnum(std::string const &label, int &result) const
 {
 	NOT_NULL(m_enumMap);
@@ -339,6 +338,9 @@ bool DataTableColumnType::lookupEnum(std::string const &label, int &result) cons
 	{
 		result = (*i).second;
 		return true;
+	}
+	for(std::map<std::string, uint32>::const_iterator it = m_enumMap->begin(); it != m_enumMap->end(); ++it) {
+	    WARNING(true,("Map Value: %s; ", it->first.c_str()));
 	}
 	return false;
 }
@@ -417,6 +419,7 @@ bool DataTableColumnType::mangleValue(std::string &value) const
 	// than default values
 	if (m_basicType != DT_Int || m_type == DT_Int)
 		return true;
+
 	// complex type which needs mangling
 	switch (m_type)
 	{

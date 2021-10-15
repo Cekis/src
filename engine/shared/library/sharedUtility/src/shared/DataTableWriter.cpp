@@ -728,7 +728,7 @@ DataTableCell *DataTableWriter::_getNewCell(DataTableColumnType const &columnTyp
 	switch (columnType.getBasicType())
 	{
 	case DataTableColumnType::DT_Int:
-		return new DataTableCell(static_cast<int>(strtol(value.c_str(), nullptr, 0)));
+		return new DataTableCell(static_cast<int32>(strtol(value.c_str(), nullptr, 0)));
 		break;
 	case DataTableColumnType::DT_Float:
 		return new DataTableCell(static_cast<float>(atof(value.c_str())));

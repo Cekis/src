@@ -28,8 +28,8 @@
 
 namespace IffNamespace
 {
-	bool consumeUint32(byte const * & memory, int & length, uint32 & value);
-	bool isValid(byte const *memory, int length);
+	bool consumeUint32(byte const * & memory, int32 & length, uint32 & value);
+	bool isValid(byte const *memory, int32 length);
 }
 
 using namespace IffNamespace;
@@ -61,22 +61,22 @@ void Iff::install()
  * @see Iff:getRawData()
  */
 
-int Iff::calculateRawDataSize(void) const
+int32 Iff::calculateRawDataSize(void) const
 {
 	// calculate the number of data bytes actually used given the max data buffer length and the contents of the data.
 	if (!data)
 		return 0;
 
 	// -TF- this assumes any extra non-iff data within the valid iff data buffer has been zeroed out
-	int     offset   = 0;
-	int     blockLength;
+	int32   offset   = 0;
+	int32   blockLength;
 	uint32  tempLength;
 
 	do
 	{
 		// get block length (including tag and length field)
 		memcpy(&tempLength, data + offset + sizeof(Tag), sizeof(uint32));
-		blockLength = static_cast<int>(ntohl(tempLength)) + isizeof(Tag) + isizeof(uint32);
+		blockLength = static_cast<int32>(ntohl(tempLength)) + isizeof(Tag) + isizeof(uint32);
 		offset += blockLength;
 	}
 	while ((offset < length) && blockLength);
@@ -86,7 +86,7 @@ int Iff::calculateRawDataSize(void) const
 
 // ======================================================================
 
-bool IffNamespace::consumeUint32(byte const * & memory, int & length, uint32 & value)
+bool IffNamespace::consumeUint32(byte const * & memory, int32 & length, uint32 & value)
 {
 	if (length < 4)
 		return false;
@@ -100,7 +100,7 @@ bool IffNamespace::consumeUint32(byte const * & memory, int & length, uint32 & v
 
 // ----------------------------------------------------------------------
 
-bool IffNamespace::isValid(byte const *memory, int length)
+bool IffNamespace::isValid(byte const *memory, int32 length)
 {
 	if (length <= 0)
 		return false;
@@ -118,11 +118,11 @@ bool IffNamespace::isValid(byte const *memory, int length)
 			return false;
 
 		// verify the file length can contain the block's data
-		if ((static_cast<int>(blockLength) < 0) || (static_cast<int>(blockLength) > length))
+		if ((static_cast<int32>(blockLength) < 0) || (static_cast<int32>(blockLength) > length))
 			return false;
 
 		// verify sub-forms
-		int subLength = blockLength-sizeof(Tag);
+		int32 subLength = blockLength-sizeof(Tag);
 		if (blockTag == TAG_FORM && (subLength != 0 && !isValid(memory+sizeof(Tag), subLength )))
 			return false;
 
@@ -206,7 +206,7 @@ Iff::Iff(void)
  * @param iffOwnsData  [IN] if true, the Iff takes ownership of the buffer and deletes it during the destructor call; if false, the Iff does not attempt to delete the buffer during the destructor call
  */
 
-Iff::Iff(int newDataSize, const byte *newData, bool iffOwnsData) :
+Iff::Iff(int32 newDataSize, const byte *newData, bool iffOwnsData) :
 	fileName(nullptr),
 	maxStackDepth(DEFAULT_STACK_DEPTH),
 	stackDepth(0),
@@ -269,7 +269,7 @@ Iff::Iff(const char *newFileName, bool optional)
  * @param clearDataBuffer  [IN] if true, the iff data buffer is zeroed during construction. if false, the data buffer is uninitialized
  */
 
-Iff::Iff(int initialSize, bool isGrowable, bool clearDataBuffer)
+Iff::Iff(int32 initialSize, bool isGrowable, bool clearDataBuffer)
 : fileName(nullptr),
 	maxStackDepth(DEFAULT_STACK_DEPTH),
 	stackDepth(0),
@@ -454,15 +454,15 @@ void Iff::fatal(const char *string) const
  * @param bufferLength  Length of the buffer to avoid overwriting memory
  */
 
-void Iff::formatLocation(char *buffer, int bufferLength) const
+void Iff::formatLocation(char *buffer, int32 bufferLength) const
 {
-	int i, stringLength, totalLength;
+	int32 i, stringLength, totalLength;
 
 	NOT_NULL(buffer);
 
 	// calculate the string length
 	if (fileName)
-		stringLength = static_cast<int>(strlen(fileName));
+		stringLength = static_cast<int32>(strlen(fileName));
 	else
 		stringLength = 0;
 
@@ -506,7 +506,7 @@ void Iff::formatLocation(char *buffer, int bufferLength) const
 
 // ----------------------------------------------------------------------
 
-Tag Iff::getFirstTag(int depth) const
+Tag Iff::getFirstTag(int32 depth) const
 {
 	Tag t;
 
@@ -531,20 +531,20 @@ Tag Iff::getFirstTag(int depth) const
  * @param offset  [IN] offset of target block within containing block
  */
 
-int Iff::getLength(int depth, int offset) const
+int32 Iff::getLength(int32 depth, int32 offset) const
 {
 	uint32 u;
 
 	NOT_NULL(data);
-	IFF_DEBUG_FATAL(stack[depth].length - stack[depth].used+offset < isizeof(Tag) + isizeof(uint32), ("read overflow"));
+	IFF_DEBUG_FATAL(stack[depth].length - stack[depth].used+offset < isizeof(Tag) + isizeof(int32), ("read overflow"));
 	memcpy(&u, data + stack[depth].start + stack[depth].used + offset + sizeof(Tag), sizeof(u));
 
-	return static_cast<int>(ntohl(u));
+	return static_cast<int32>(ntohl(u));
 }
 
 // ----------------------------------------------------------------------
 
-Tag Iff::getSecondTag(int depth) const
+Tag Iff::getSecondTag(int32 depth) const
 {
 	Tag t;
 
@@ -573,10 +573,10 @@ Tag Iff::getSecondTag(int depth) const
  * @param size  Delta number of bytes
  */
 
-void Iff::adjustDataAsNeeded(int size)
+void Iff::adjustDataAsNeeded(int32 size)
 {
 	// calculate the final required size of the data array
-	const int neededLength = stack[0].length + size;
+	const int32 neededLength = stack[0].length + size;
 
 	NOT_NULL(data);
 	IFF_DEBUG_FATAL(neededLength < 0, ("data size underflow"));
@@ -584,7 +584,7 @@ void Iff::adjustDataAsNeeded(int size)
 	// check if we need to expand the data array
 	if (neededLength > length)
 	{
-		int newLength;
+		int32 newLength;
 
 		// make sure the iff was growable
 		DEBUG_FATAL(!growable, ("data size overflow %d/%d", neededLength, length));
@@ -615,8 +615,8 @@ void Iff::adjustDataAsNeeded(int size)
 	}
 
 	// move data around to either make room or remove data
-	const int offset = stack[stackDepth].start + stack[stackDepth].used;
-	const int lengthToEnd  = stack[0].length - offset;
+	const int32 offset = stack[stackDepth].start + stack[stackDepth].used;
+	const int32 lengthToEnd  = stack[0].length - offset;
 	if (size > 0)
 		memmove(data+offset+size, data+offset, lengthToEnd);
 	else
@@ -634,13 +634,13 @@ void Iff::adjustDataAsNeeded(int size)
 			// update the data's idea of the block length
 			if (i == stackDepth && inChunk)
 			{
-				const int ui32 = static_cast<int>(htonl(static_cast<unsigned long>(stack[i].length)));
+				const uint32 ui32 = static_cast<uint32>(htonl(static_cast<unsigned long>(stack[i].length)));
 				memcpy(data+stack[i].start-sizeof(uint32), &ui32, sizeof(uint32));
 			}
 			else
 			{
 				// account for forms start beyond the first 4 data bytes, which is their real form name
-				const int ui32 = static_cast<int>(htonl(static_cast<unsigned long>(stack[i].length) + sizeof(Tag)));
+				const uint32 ui32 = static_cast<uint32>(htonl(static_cast<unsigned long>(stack[i].length) + sizeof(Tag)));
 				memcpy(data+stack[i].start-sizeof(Tag)-sizeof(uint32), &ui32, sizeof(uint32));
 			}
 		}
@@ -669,7 +669,7 @@ void Iff::insertIff(const Iff *iff)
 	adjustDataAsNeeded(iff->stack[0].length);
 
 	// compute the offset to start inserting data at
-	const int offset = stack[stackDepth].start + stack[stackDepth].used;
+	const uint32 offset = stack[stackDepth].start + stack[stackDepth].used;
 
 	// add the other iff
 	memcpy(data+offset, iff->data, iff->stack[0].length);
@@ -694,11 +694,11 @@ void Iff::insertIff(const Iff *iff)
 
 void Iff::insertForm(Tag name, bool shouldEnterForm)
 {
-	const int FORM_OVERHEAD = sizeof(Tag) + sizeof(uint32) + sizeof(Tag);
+	const int32 FORM_OVERHEAD = sizeof(Tag) + sizeof(uint32) + sizeof(Tag);
 
-	Tag    t;
-	uint32 ui32;
-	int    offset;
+	Tag      t;
+	int32    ui32;
+	int32    offset;
 
 	NOT_NULL(data);
 	IFF_DEBUG_FATAL(inChunk, "inside chunk");
@@ -744,10 +744,10 @@ void Iff::insertForm(Tag name, bool shouldEnterForm)
 
 void Iff::insertChunk(Tag name, bool shouldEnterChunk)
 {
-	const int CHUNK_OVERHEAD = sizeof(Tag) + sizeof(uint32);
+	const int32 CHUNK_OVERHEAD = sizeof(Tag) + sizeof(int32);
 
-	Tag    t;
-	int    offset;
+	Tag      t;
+	int32    offset;
 
 	NOT_NULL(data);
 	IFF_DEBUG_FATAL(inChunk, "inside chunk");
@@ -786,7 +786,7 @@ void Iff::insertChunk(Tag name, bool shouldEnterChunk)
  * @param dataLength  Length of the data to copy into the chunk
  */
 
-void Iff::insertChunkData(const void *newData, int dataLength)
+void Iff::insertChunkData(const void *newData, int32 dataLength)
 {
 	NOT_NULL(data);
 	DEBUG_FATAL(dataLength < 0, ("dataLength < 0, %d", dataLength));
@@ -802,7 +802,7 @@ void Iff::insertChunkData(const void *newData, int dataLength)
 	adjustDataAsNeeded(dataLength);
 
 	// compute the offset to start inserting data at
-	const int offset = stack[stackDepth].start + stack[stackDepth].used;
+	const uint32 offset = stack[stackDepth].start + stack[stackDepth].used;
 
 
 	// add the size of the chunk
@@ -928,7 +928,7 @@ void Iff::insertChunkString(const Unicode::String & str)
  * @param dataLength  Number of bytes to delete
  */
 
-void Iff::deleteChunkData(int dataLength)
+void Iff::deleteChunkData(int32 dataLength)
 {
 	IFF_DEBUG_FATAL(!inChunk, "not in chunk");
 	DEBUG_FATAL(dataLength < 0, ("dataLength to delete %d < 0", dataLength));
@@ -950,7 +950,7 @@ void Iff::deleteChunkData(int dataLength)
  * @see Iff::allowNonlinearFunctions()
  */
 
-void Iff::seekWithinChunk(int offset, SeekType seekType)
+void Iff::seekWithinChunk(int32 offset, SeekType seekType)
 {
 	DEBUG_FATAL(!nonlinear, ("nonlinear commands not permitted"));
 	IFF_DEBUG_FATAL(!inChunk, "not in chunk");
@@ -1018,9 +1018,9 @@ bool Iff::atEndOfForm(void) const
  * @return The number of blocks left in the currently enclosing form
  */
 
-int Iff::getNumberOfBlocksLeft(void) const
+int32 Iff::getNumberOfBlocksLeft(void) const
 {
-	int result, offset;
+	int32 result, offset;
 
 	IFF_DEBUG_FATAL(inChunk, "in chunk");
 
@@ -1038,7 +1038,7 @@ int Iff::getNumberOfBlocksLeft(void) const
  * @return The tag for the specified block depth
  */
 
-Tag Iff::getBlockName(int depth) const
+Tag Iff::getBlockName(int32 depth) const
 {
 	Tag t;
 
@@ -1056,7 +1056,7 @@ Tag Iff::getBlockName(int depth) const
  * @return The length of the current block
  */
 
-int Iff::getCurrentLength(void) const
+int32 Iff::getCurrentLength(void) const
 {
 	return getLength(stackDepth);
 }
@@ -1385,7 +1385,7 @@ bool Iff::seek(Tag name, BlockType type)
  * @see Iff::getChunkLengthLeft()
  */
 
-int Iff::getChunkLengthTotal(int elementSize) const
+int32 Iff::getChunkLengthTotal(int32 elementSize) const
 {
 	DEBUG_FATAL(!inChunk, ("not in chunk"));
 	DEBUG_FATAL(stack[stackDepth].length % elementSize != 0, ("%d not a multiple of %d", stack[stackDepth].length, elementSize));
@@ -1412,17 +1412,17 @@ int Iff::getChunkLengthTotal(int elementSize) const
  * @see Iff::getChunkLengthTotal()
  */
 
-int Iff::getChunkLengthLeft(int elementSize) const
+int32 Iff::getChunkLengthLeft(int32 elementSize) const
 {
 	DEBUG_FATAL(!inChunk, ("not in chunk"));
-	const int left = stack[stackDepth].length - stack[stackDepth].used;
+	const uint32 left = stack[stackDepth].length - stack[stackDepth].used;
 	DEBUG_FATAL(left % elementSize != 0, ("%d not a multiple of %d", left, elementSize));
 	return (left / elementSize);
 }
 
 // ----------------------------------------------------------------------
 
-void Iff::read_misc(void *readData, int readLength)
+void Iff::read_misc(void *readData, uint32 readLength)
 {
 	NOT_NULL(readData);
 	NOT_NULL(data);
@@ -1536,7 +1536,7 @@ Quaternion Iff::read_floatQuaternion(void)
  * @param maxLength  Size of the buffer
  */
 
-void Iff::read_string(char *string, int maxLength)
+void Iff::read_string(char *string, int32 maxLength)
 {
 	NOT_NULL(string);
 	NOT_NULL(data);
@@ -1586,9 +1586,9 @@ char *Iff::read_string(void)
 	Stack &s = stack[stackDepth];
 
 	// get a pointer to the start of the source string
-	char *source       = reinterpret_cast<char *>(data + s.start + s.used);
-	int   maxLength    = s.length - s.used;
-	int   sourceLength = 0;
+	char     *source       = reinterpret_cast<char *>(data + s.start + s.used);
+	uint32   maxLength    = s.length - s.used;
+	uint32   sourceLength = 0;
 
 	// search for the end of the string
 	for ( ; sourceLength < maxLength && source[sourceLength]; ++sourceLength)
@@ -1626,9 +1626,9 @@ void Iff::read_string(std::string &string)
 	Stack &s = stack[stackDepth];
 
 	// get a pointer to the start of the source string
-	char *source       = reinterpret_cast<char *>(data + s.start + s.used);
-	int   maxLength    = s.length - s.used;
-	int   sourceLength = 0;
+	char    *source       = reinterpret_cast<char *>(data + s.start + s.used);
+	uint32   maxLength    = s.length - s.used;
+	uint32   sourceLength = 0;
 
 	// search for the end of the string
 	for ( ; sourceLength < maxLength && source[sourceLength]; ++sourceLength)
