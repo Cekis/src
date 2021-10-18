@@ -113,7 +113,7 @@ Tag OutputFileHandler::convertStrToTag(
 
 void OutputFileHandler::insertChunkData(
 		void *data,
-		int length
+		int32 length
 		)
 {
 	outputIFF->insertChunkData(data, length);

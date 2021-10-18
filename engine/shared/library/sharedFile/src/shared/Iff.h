@@ -205,32 +205,32 @@ public:
 	Quaternion  read_floatQuaternion(void);
 
 	// read arrays
-	void    read_int8  (int count, int8   *array);
-	void    read_int16 (int count, int16  *array);
-	void    read_int32 (int count, int32  *array);
-	void    read_uint8 (int count, uint8  *array);
-	void    read_uint16(int count, uint16 *array);
-	void    read_uint32(int count, uint32 *array);
-	void    read_char  (int count, char   *array);
+	void    read_int8  (int32 count, int8   *array);
+	void    read_int16 (int32 count, int16  *array);
+	void    read_int32 (int32 count, int32  *array);
+	void    read_uint8 (int32 count, uint8  *array);
+	void    read_uint16(int32 count, uint16 *array);
+	void    read_uint32(int32 count, uint32 *array);
+	void    read_char  (int32 count, char   *array);
 	void    read_floatVector(int count, Vector *array);
 	void    read_floatTransform(int count, Transform *array);
 	void    read_floatQuaternion(int count, Quaternion *array);
 
-	int8   *read_int8  (int count);
-	int16  *read_int16 (int count);
-	int32  *read_int32 (int count);
-	uint8  *read_uint8 (int count);
-	uint16 *read_uint16(int count);
-	uint32 *read_uint32(int count);
-	char   *read_char  (int count);
+	int8   *read_int8  (int32 count);
+	int16  *read_int16 (int32 count);
+	int32  *read_int32 (int32 count);
+	uint8  *read_uint8 (int32 count);
+	uint16 *read_uint16(int32 count);
+	uint32 *read_uint32(int32 count);
+	char   *read_char  (int32 count);
 
-	void    readRest_int8  (int8   *array, int numberOfElements);
-	void    readRest_int16 (int16  *array, int numberOfElements);
-	void    readRest_int32 (int32  *array, int numberOfElements);
-	void    readRest_uint8 (uint8  *array, int numberOfElements);
-	void    readRest_uint16(uint16 *array, int numberOfElements);
-	void    readRest_uint32(uint32 *array, int numberOfElements);
-	void    readRest_char  (char   *array, int numberOfElements);
+	void    readRest_int8  (int8   *array, int32 numberOfElements);
+	void    readRest_int16 (int16  *array, int32 numberOfElements);
+	void    readRest_int32 (int32  *array, int32 numberOfElements);
+	void    readRest_uint8 (uint8  *array, int32 numberOfElements);
+	void    readRest_uint16(uint16 *array, int32 numberOfElements);
+	void    readRest_uint32(uint32 *array, int32 numberOfElements);
+	void    readRest_char  (char   *array, int32 numberOfElements);
 
 	int8   *readRest_int8  (void);
 	int16  *readRest_int16 (void);
@@ -664,7 +664,7 @@ inline real Iff::read_float(void)
  * @see Iff::read_*()
  */
 
-inline void Iff::read_int8(int count, int8 *array)
+inline void Iff::read_int8(int32 count, int8 *array)
 {
 	read_misc(array, count * isizeof(*array));
 }
@@ -682,7 +682,7 @@ inline void Iff::read_int8(int count, int8 *array)
  * @see Iff::read_*()
  */
 
-inline void Iff::read_int16(int count, int16 *array)
+inline void Iff::read_int16(int32 count, int16 *array)
 {
 	read_misc(array, count * isizeof(*array));
 }
@@ -700,7 +700,7 @@ inline void Iff::read_int16(int count, int16 *array)
  * @see Iff::read_*()
  */
 
-inline void Iff::read_int32(int count, int32 *array)
+inline void Iff::read_int32(int32 count, int32 *array)
 {
 	read_misc(array, count * isizeof(*array));
 }
@@ -718,7 +718,7 @@ inline void Iff::read_int32(int count, int32 *array)
  * @see Iff::read_*()
  */
 
-inline void Iff::read_uint8(int count, uint8 *array)
+inline void Iff::read_uint8(int32 count, uint8 *array)
 {
 	read_misc(array, count * isizeof(*array));
 }
@@ -736,7 +736,7 @@ inline void Iff::read_uint8(int count, uint8 *array)
  * @see Iff::read_*()
  */
 
-inline void Iff::read_uint16(int count, uint16 *array)
+inline void Iff::read_uint16(int32 count, uint16 *array)
 {
 	read_misc(array, count * isizeof(*array));
 }
@@ -754,7 +754,7 @@ inline void Iff::read_uint16(int count, uint16 *array)
  * @see Iff::read_*()
  */
 
-inline void Iff::read_uint32(int count, uint32 *array)
+inline void Iff::read_uint32(int32 count, uint32 *array)
 {
 	read_misc(array, count * isizeof(*array));
 }
@@ -772,7 +772,7 @@ inline void Iff::read_uint32(int count, uint32 *array)
  * @see Iff::read_*()
  */
 
-inline void Iff::read_char(int count, char *array)
+inline void Iff::read_char(int32 count, char *array)
 {
 	read_misc(array, count * isizeof(*array));
 }
@@ -792,7 +792,7 @@ inline void Iff::read_char(int count, char *array)
  * @see Iff::read_*()
  */
 
-inline int8 *Iff::read_int8(int count)
+inline int8 *Iff::read_int8(int32 count)
 {
 	int8 *array = new int8[static_cast<size_t>(count)];
 	read_int8(count, array);
@@ -814,7 +814,7 @@ inline int8 *Iff::read_int8(int count)
  * @see Iff::read_*()
  */
 
-inline int16 *Iff::read_int16(int count)
+inline int16 *Iff::read_int16(int32 count)
 {
 	int16 *array = new int16[static_cast<size_t>(count)];
 	read_int16(count, array);
@@ -836,7 +836,7 @@ inline int16 *Iff::read_int16(int count)
  * @see Iff::read_*()
  */
 
-inline int32 *Iff::read_int32(int count)
+inline int32 *Iff::read_int32(int32 count)
 {
 	int32 *array = new int32[static_cast<size_t>(count)];
 	read_int32(count, array);
@@ -858,7 +858,7 @@ inline int32 *Iff::read_int32(int count)
  * @see Iff::read_*()
  */
 
-inline uint8 *Iff::read_uint8(int count)
+inline uint8 *Iff::read_uint8(int32 count)
 {
 	uint8 *array = new uint8[static_cast<size_t>(count)];
 	read_uint8(count, array);
@@ -880,7 +880,7 @@ inline uint8 *Iff::read_uint8(int count)
  * @see Iff::read_*()
  */
 
-inline uint16 *Iff::read_uint16(int count)
+inline uint16 *Iff::read_uint16(int32 count)
 {
 	uint16 *array = new uint16[static_cast<size_t>(count)];
 	read_uint16(count, array);
@@ -902,7 +902,7 @@ inline uint16 *Iff::read_uint16(int count)
  * @see Iff::read_*()
  */
 
-inline uint32 *Iff::read_uint32(int count)
+inline uint32 *Iff::read_uint32(int32 count)
 {
 	uint32 *array = new uint32[static_cast<size_t>(count)];
 	read_uint32(count, array);
@@ -924,7 +924,7 @@ inline uint32 *Iff::read_uint32(int count)
  * @see Iff::read_*()
  */
 
-inline char *Iff::read_char(int count)
+inline char *Iff::read_char(int32 count)
 {
 	char *array = new char[static_cast<size_t>(count)];
 	read_char(count, array);
@@ -954,10 +954,10 @@ inline char *Iff::read_char(int count)
  * @see Iff::read_*()
  */
 
-inline void Iff::readRest_int8(int8 *array, int numberOfElements)
+inline void Iff::readRest_int8(int8 *array, int32 numberOfElements)
 {
 	UNREF(numberOfElements);
-	const int count = getChunkLengthLeft(isizeof(*array));
+	const int32 count = getChunkLengthLeft(isizeof(*array));
 	DEBUG_FATAL(count > numberOfElements, ("Iff::ReadRest_int8 overflow array %d/%d", count, numberOfElements));
 	read_int8(count, array);
 }
@@ -985,10 +985,10 @@ inline void Iff::readRest_int8(int8 *array, int numberOfElements)
  * @see Iff::read_*()
  */
 
-inline void Iff::readRest_int16(int16 *array, int numberOfElements)
+inline void Iff::readRest_int16(int16 *array, int32 numberOfElements)
 {
 	UNREF(numberOfElements);
-	const int count = getChunkLengthLeft(isizeof(*array));
+	const int32 count = getChunkLengthLeft(isizeof(*array));
 	DEBUG_FATAL(count > numberOfElements, ("Iff::ReadRest_int8 overflow array %d/%d", count, numberOfElements));
 	read_int16(count, array);
 }
@@ -1016,10 +1016,10 @@ inline void Iff::readRest_int16(int16 *array, int numberOfElements)
  * @see Iff::read_*()
  */
 
-inline void Iff::readRest_int32(int32 *array, int numberOfElements)
+inline void Iff::readRest_int32(int32 *array, int32 numberOfElements)
 {
 	UNREF(numberOfElements);
-	const int count = getChunkLengthLeft(isizeof(*array));
+	const int32 count = getChunkLengthLeft(isizeof(*array));
 	DEBUG_FATAL(count > numberOfElements, ("Iff::ReadRest_int8 overflow array %d/%d", count, numberOfElements));
 	read_int32(count, array);
 }
@@ -1047,10 +1047,10 @@ inline void Iff::readRest_int32(int32 *array, int numberOfElements)
  * @see Iff::read_*()
  */
 
-inline void Iff::readRest_uint8(uint8 *array, int numberOfElements)
+inline void Iff::readRest_uint8(uint8 *array, int32 numberOfElements)
 {
 	UNREF(numberOfElements);
-	const int count = getChunkLengthLeft(isizeof(*array));
+	const int32 count = getChunkLengthLeft(isizeof(*array));
 	DEBUG_FATAL(count > numberOfElements, ("Iff::ReadRest_int8 overflow array %d/%d", count, numberOfElements));
 	read_uint8(count, array);
 }
@@ -1078,10 +1078,10 @@ inline void Iff::readRest_uint8(uint8 *array, int numberOfElements)
  * @see Iff::read_*()
  */
 
-inline void Iff::readRest_uint16(uint16 *array, int numberOfElements)
+inline void Iff::readRest_uint16(uint16 *array, int32 numberOfElements)
 {
 	UNREF(numberOfElements);
-	const int count = getChunkLengthLeft(isizeof(*array));
+	const int32 count = getChunkLengthLeft(isizeof(*array));
 	DEBUG_FATAL(count > numberOfElements, ("Iff::ReadRest_int8 overflow array %d/%d", count, numberOfElements));
 	read_uint16(count, array);
 }
@@ -1109,10 +1109,10 @@ inline void Iff::readRest_uint16(uint16 *array, int numberOfElements)
  * @see Iff::read_*()
  */
 
-inline void Iff::readRest_uint32(uint32 *array, int numberOfElements)
+inline void Iff::readRest_uint32(uint32 *array, int32 numberOfElements)
 {
 	UNREF(numberOfElements);
-	const int count = getChunkLengthLeft(isizeof(*array));
+	const int32 count = getChunkLengthLeft(isizeof(*array));
 	DEBUG_FATAL(count > numberOfElements, ("Iff::ReadRest_int8 overflow array %d/%d", count, numberOfElements));
 	read_uint32(count, array);
 }
@@ -1140,10 +1140,10 @@ inline void Iff::readRest_uint32(uint32 *array, int numberOfElements)
  * @see Iff::read_*()
  */
 
-inline void Iff::readRest_char(char *array, int numberOfElements)
+inline void Iff::readRest_char(char *array, int32 numberOfElements)
 {
 	UNREF(numberOfElements);
-	const int count = getChunkLengthLeft(isizeof(*array));
+	const int32 count = getChunkLengthLeft(isizeof(*array));
 	DEBUG_FATAL(count > numberOfElements, ("Iff::ReadRest_int8 overflow array %d/%d", count, numberOfElements));
 	read_char(count, array);
 }

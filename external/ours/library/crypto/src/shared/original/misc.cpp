@@ -8,38 +8,38 @@ NAMESPACE_BEGIN(CryptoPP)
 
 byte OAEP_P_DEFAULT[1];
 
-void xorbuf(byte *buf, const byte *mask, unsigned int count)
+void xorbuf(byte *buf, const byte *mask, uint32_t count)
 {
-	if (((long unsigned int)buf | (long unsigned int)mask | count) % WORD_SIZE == 0)
+	if (((long uint32_t)buf | (long uint32_t)mask | count) % WORD_SIZE == 0)
 		XorWords((word *)buf, (const word *)mask, count/WORD_SIZE);
 	else
 	{
-		for (unsigned int i=0; i<count; i++)
+		for (uint32_t i=0; i<count; i++)
 			buf[i] ^= mask[i];
 	}
 }
 
-void xorbuf(byte *output, const byte *input, const byte *mask, unsigned int count)
+void xorbuf(byte *output, const byte *input, const byte *mask, uint32_t count)
 {
-	if (((long unsigned int)output | (long unsigned int)input | (long unsigned int)mask | count) % WORD_SIZE == 0)
+	if (((long uint32_t)output | (long uint32_t)input | (long uint32_t)mask | count) % WORD_SIZE == 0)
 		XorWords((word *)output, (const word *)input, (const word *)mask, count/WORD_SIZE);
 	else
 	{
-		for (unsigned int i=0; i<count; i++)
+		for (uint32_t i=0; i<count; i++)
 			output[i] = input[i] ^ mask[i];
 	}
 }
 
-unsigned int Parity(unsigned long value)
+uint32_t Parity(unsigned long value)
 {
-	for (unsigned int i=8*sizeof(value)/2; i>0; i/=2)
+	for (uint32_t i=8*sizeof(value)/2; i>0; i/=2)
 		value ^= value >> i;
-	return (unsigned int)value&1;
+	return (uint32_t)value&1;
 }
 
-unsigned int BytePrecision(unsigned long value)
+uint32_t BytePrecision(unsigned long value)
 {
-	unsigned int i;
+	uint32_t i;
 	for (i=sizeof(value); i; --i)
 		if (value >> (i-1)*8)
 			break;
@@ -47,16 +47,16 @@ unsigned int BytePrecision(unsigned long value)
 	return i;
 }
 
-unsigned int BitPrecision(unsigned long value)
+uint32_t BitPrecision(unsigned long value)
 {
 	if (!value)
 		return 0;
 
-	unsigned int l=0, h=8*sizeof(value);
+	uint32_t l=0, h=8*sizeof(value);
 
 	while (h-l > 1)
 	{
-		unsigned int t = (l+h)/2;
+		uint32_t t = (l+h)/2;
 		if (value >> t)
 			l = t;
 		else
@@ -66,7 +66,7 @@ unsigned int BitPrecision(unsigned long value)
 	return h;
 }
 
-unsigned long Crop(unsigned long value, unsigned int size)
+unsigned long Crop(unsigned long value, uint32_t size)
 {
 	if (size < 8*sizeof(value))
     	return (value & ((1L << size) - 1));

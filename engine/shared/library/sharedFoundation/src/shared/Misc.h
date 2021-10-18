@@ -146,7 +146,7 @@ inline char *DuplicateString(const char *source)
 	if (!source)
 		return nullptr;
 
-	const uint length = strlen(source)+1;
+	const uint32 length = strlen(source)+1;
 	char *result = NON_NULL (new char[length]);
 	memcpy(result, source, length);
 	return result;
@@ -208,11 +208,11 @@ inline void imemset(void *data, int value, int length)
  * @param length  Number of bytes to copy
  */
 
-inline void imemcpy(void *destination, const void *source, int length)
+inline void imemcpy(void *destination, const void *source, int32 length)
 {
 	DEBUG_FATAL(!destination, ("nullptr destination arg"));
 	DEBUG_FATAL(!source, ("nullptr source arg"));
-	memcpy(destination, source, static_cast<uint>(length));
+	memcpy(destination, source, static_cast<uint32>(length));
 }
 
 // ----------------------------------------------------------------------

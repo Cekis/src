@@ -115,7 +115,7 @@ inline Tag ConvertStringToTag(const char *value)
 {
 	Tag result = 0;
 	
-	const int length = strlen(value);
+	const uint32 length = strlen(value);
 	for (int i = 0; i < 4; ++i)
 	{
 		const uint32 ch = static_cast<uint32>((i >= length) ? ' ' : value[i]);
@@ -134,7 +134,7 @@ inline Tag ConvertStringToTag(const char *value)
  * @param value value to convert to tag format
  */
 
-inline Tag ConvertIntToTag(int value)
+inline Tag ConvertIntToTag(int32 value)
 {
 	Tag result = 0;
 	
@@ -142,7 +142,7 @@ inline Tag ConvertIntToTag(int value)
 
 	for (int i = 0; i < 4; ++i)
 	{
-		const uint digit = static_cast<uint>(static_cast<int>(value % 10));
+		const uint32 digit = static_cast<uint32>(static_cast<int32>(value % 10));
 		value /= 10;
 		result |= (digit + '0') << (i * 8);
 	}
@@ -169,13 +169,13 @@ inline Tag ConvertIntToTag(int value)
 
 inline void ConvertTagToString(Tag tag, char *buffer)
 {
-	int  i, j, ch;
+	uint32  i, j, ch;
 
 	DEBUG_FATAL(!buffer, ("buffer is nullptr"));
 
 	for (i = 0, j = 24; i < 4; ++i, j -= 8)
 	{
-		ch = (static_cast<int>(tag) >> j) & 0xff; //lint !e702 // shift right of a signed quantity
+		ch = (static_cast<uint32>(tag) >> j) & 0xff; //lint !e702 // shift right of a signed quantity
 		if (isprint(ch))
 			buffer[i] = static_cast<char>(ch);
 		else
@@ -200,15 +200,15 @@ inline void ConvertTagToString(Tag tag, char *buffer)
  * @return Integer form of tag string.
  */
 
-inline int ConvertTagSuffixToInt(Tag tag)
+inline int32 ConvertTagSuffixToInt(Tag tag)
 {
-	int returnValue=0;
+	int32 returnValue=0;
 	for (int i=24;i>=0;i-=8)
 	{
-		const int c = (tag>>i) & 0xff;
+		const int32 c = (tag>>i) & 0xff;
 		if (c>='0' && c<='9')
 		{
-			returnValue = returnValue*10 + int(c) -'0';
+			returnValue = returnValue*10 + int32(c) -'0';
 		}
 		else
 		{
@@ -234,15 +234,15 @@ inline int ConvertTagSuffixToInt(Tag tag)
  * @return Integer form of tag string.
  */
 
-inline int ConvertTagToInt(Tag tag)
+inline int32 ConvertTagToInt(Tag tag)
 {
-	int returnValue=0;
+	int32 returnValue=0;
 	for (int i=24;i>=0;i-=8)
 	{
-		const int c = (tag>>i) & 0xff;
+		const int32 c = (tag>>i) & 0xff;
 		if (c>='0' && c<='9')
 		{
-			returnValue = returnValue*10 + int(c) -'0';
+			returnValue = returnValue*10 + int32(c) -'0';
 		}
 		else
 		{

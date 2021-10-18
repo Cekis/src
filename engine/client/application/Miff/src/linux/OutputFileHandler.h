@@ -33,7 +33,7 @@ public:     // functions
 
 	void insertForm(const char *tagName);
 	void insertChunk(const char *tagName);
-	void insertChunkData(void *data, int length);
+	void insertChunkData(void *data, int32 length);
 	void exitForm(void);
 	void exitChunk(void);
 

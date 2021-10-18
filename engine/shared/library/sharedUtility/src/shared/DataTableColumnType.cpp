@@ -339,9 +339,6 @@ bool DataTableColumnType::lookupEnum(std::string const &label, int &result) cons
 		result = (*i).second;
 		return true;
 	}
-	for(std::map<std::string, uint32>::const_iterator it = m_enumMap->begin(); it != m_enumMap->end(); ++it) {
-	    WARNING(true,("Map Value: %s; ", it->first.c_str()));
-	}
 	return false;
 }
 

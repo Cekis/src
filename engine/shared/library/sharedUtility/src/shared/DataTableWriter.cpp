@@ -819,13 +819,13 @@ void DataTableWriter::_saveColumns(NamedDataTable * ndt, Iff& iff) const
 {
 	iff.insertChunk(TAG(C,O,L,S));
 	NamedDataTable::DataTableColumnTypeVector::iterator j;
-	int numCols = 0;
+	int32 numCols = 0;
 	for (j = ndt->m_types.begin(); j!=ndt->m_types.end(); ++j)
 	{
 		if ((*j)->getType() != DataTableColumnType::DT_Comment)
 			++numCols;
 	}
-	iff.insertChunkData(&numCols, sizeof(int));
+	iff.insertChunkData(&numCols, sizeof(int32));
 	std::vector<std::string>::iterator i = ndt->m_columns.begin();
 	j = ndt->m_types.begin();
 	for (; i!= ndt->m_columns.end(); ++i, ++j)
@@ -858,8 +858,8 @@ void DataTableWriter::_saveRows(NamedDataTable * ndt, Iff& iff) const
 {
 	iff.insertChunk(TAG(R,O,W,S));
 
-	int numRows = static_cast<int>(ndt->m_rows.size());
-	iff.insertChunkData(&numRows, sizeof(int));
+	int32 numRows = static_cast<int32>(ndt->m_rows.size());
+	iff.insertChunkData(&numRows, sizeof(int32));
 	std::vector<NamedDataTable::DataTableRow* >::iterator i = ndt->m_rows.begin();
 	for (; i!= ndt->m_rows.end(); ++i)
 	{
@@ -873,8 +873,8 @@ void DataTableWriter::_saveRows(NamedDataTable * ndt, Iff& iff) const
 				{
 				const DataTableCell * cell = *j;
 				NOT_NULL(cell);
-				int tmp = cell->getIntValue();
-				iff.insertChunkData(&tmp, sizeof(int));
+				int32 tmp = cell->getIntValue();
+				iff.insertChunkData(&tmp, sizeof(int32));
 				break;
 				}
 			case DataTableColumnType::DT_Float:
