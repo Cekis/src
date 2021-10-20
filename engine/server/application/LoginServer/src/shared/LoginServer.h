@@ -38,10 +38,10 @@ class LoginServer : public Singleton<LoginServer>, public MessageDispatch::Recei
 public:
 
 	~LoginServer ();
-	int                      addClient           (ClientConnection & client);
+	int32_t                  addClient           (ClientConnection & client);
 	ClientConnection*        getValidatedClient  (const StationId& suid);
-	ClientConnection*        getUnvalidatedClient (int clientId);
-	void                     removeClient        (int clientId);
+	ClientConnection*        getUnvalidatedClient (int32_t clientId);
+	void                     removeClient        (int32_t clientId);
 		
 	const std::unordered_map<std::string, const CentralServerConnection *> & getCentralServerMap_hide() const;
 
@@ -57,11 +57,11 @@ public:
 	static void              run                 (void);
 	void                     onValidateClient    (StationId id, const std::string & username, ClientConnection*,bool, const char*, uint32 gameBits, uint32 subscriptionBits);
 
-	void                     sendAvatarList      (const StationId& stationId, int stationIdNumberJediSlot, const AvatarList &avatars, TransferCharacterData * const);
+	void                     sendAvatarList      (const StationId& stationId, int32_t stationIdNumberJediSlot, const AvatarList &avatars, TransferCharacterData * const);
 
-	void                     updateClusterData   (uint32 clusterId, const std::string &clusterName, const std::string &address, const uint16 port, bool secret, bool locked, bool notRecommended, int maxCharactersPerAccount, int onlinePlayerLimit, int onlineFreeTrialLimit, bool freeTrialCanCreateChar, int onlineTutorialLimit);
+	void                     updateClusterData   (uint32 clusterId, const std::string &clusterName, const std::string &address, const uint16 port, bool secret, bool locked, bool notRecommended, int32_t maxCharactersPerAccount, int32_t onlinePlayerLimit, int32_t onlineFreeTrialLimit, bool freeTrialCanCreateChar, int32_t onlineTutorialLimit);
 	void                     onClusterRegistered (uint32 clusterId, const std::string &clusterName);
-	void                     validateAccount     (const StationId& stationId, uint32 clusterId, uint32 subscriptionBits, bool canCreateRegular, bool canCreateJedi, bool canSkipTutorial, unsigned int track, std::vector<std::pair<NetworkId, std::string> > const & consumedRewardEvents, std::vector<std::pair<NetworkId, std::string> > const & claimedRewardItems);
+	void                     validateAccount     (const StationId& stationId, uint32 clusterId, uint32 subscriptionBits, bool canCreateRegular, bool canCreateJedi, bool canSkipTutorial, uint32 track, std::vector<std::pair<NetworkId, std::string> > const & consumedRewardEvents, std::vector<std::pair<NetworkId, std::string> > const & claimedRewardItems);
 	void                     validateAccountForTransfer(const TransferRequestMoveValidation & request, uint32 clusterId, uint32 sourceCharacterTemplateId, bool canCreateRegular, bool canCreateJedi);
 	void                     sendToCluster       (uint32 clusterId, const GameNetworkMessage &message);
 	void                     sendToAllClusters   (GameNetworkMessage const & message, Connection const * excludeCentralConnection = nullptr, uint32 excludeClusterId = 0, char const * excludeClusterName = nullptr);
@@ -70,7 +70,7 @@ public:
 	void                     performAccountTransfer (const AvatarList &avatars, TransferAccountData * transferAccountData);
 	void                     setDone             (const bool isDone);
 	
-	void                     setClusterInfoByName( const std::string &name, const std::string &branch, int changelist, const std::string &networkVersion );
+	void                     setClusterInfoByName( const std::string &name, const std::string &branch, int32_t changelist, const std::string &networkVersion );
 	void                     sendExtendedClusterInfo( ClientConnection &client ) const;
 	
 	void getAllClusterNamesAndIDs( std::map< std::string, uint32 > &results ) const;
@@ -82,9 +82,9 @@ public:
         std::string clientServiceAddress;
         uint16      clientServicePortPrivate;
         uint16      clientServicePortPublic;
-		int         id;
+		int32_t     id;
 		uint16      pingPort;
-		int         numClients;
+		int32_t     numClients;
 
 		bool operator==(const ConnectionServerEntry &rhs) const;
     };
@@ -107,16 +107,16 @@ private:
 		std::string                         m_clusterName;
 		CentralServerConnection *           m_centralServerConnection;
 		std::vector<ConnectionServerEntry>  m_connectionServers;
-		int                                 m_numPlayers;
-		int                                 m_numFreeTrialPlayers;
-		int                                 m_numTutorialPlayers;
-		int                                 m_maxCharacters;
-		int                                 m_maxCharactersPerAccount;
-		int                                 m_onlinePlayerLimit;
-		int                                 m_onlineFreeTrialLimit;
-		int                                 m_onlineTutorialLimit;
+		int32_t                             m_numPlayers;
+		int32_t                             m_numFreeTrialPlayers;
+		int32_t                             m_numTutorialPlayers;
+		int32_t                             m_maxCharacters;
+		int32_t                             m_maxCharactersPerAccount;
+		int32_t                             m_onlinePlayerLimit;
+		int32_t                             m_onlineFreeTrialLimit;
+		int32_t                             m_onlineTutorialLimit;
 		bool                                m_freeTrialCanCreateChar;
-		int                                 m_timeZone;
+		int32_t                             m_timeZone;
 		bool                                m_connected;
 		std::string                         m_address;
 		uint16                              m_port;
@@ -127,7 +127,7 @@ private:
 		bool                                m_notRecommendedDatabase;
 		bool                                m_notRecommendedCentral;
 		std::string                         m_branch;
-		int                                 m_changelist;
+		int32_t                             m_changelist;
 		std::string                         m_networkVersion;
 		
 		ClusterListEntry             ();
@@ -136,7 +136,7 @@ private:
 	};
 
 	typedef std::vector<ClusterListEntry*> ClusterListType;
-	typedef std::map<int, ClientConnection *> ActiveClientsType;
+	typedef std::map<int32_t, ClientConnection *> ActiveClientsType;
 	
 private:
 	void                           installSessionValidation();

@@ -89,7 +89,7 @@ namespace LoginServerNamespace {
     };
 
     // Very simple function to determine if a "threshold" has been crossed
-    bool hasCrossedThreshold(int thresholdValue, int oldValue, int newValue) {
+    bool hasCrossedThreshold(int32_t thresholdValue, int32_t oldValue, int32_t newValue) {
         bool result = false;
 
         if ((oldValue < thresholdValue) && (newValue >= thresholdValue)) {
@@ -106,8 +106,8 @@ namespace LoginServerNamespace {
     // for testing purpose when not using session authentication, store
     // the account feature Ids here, which will get cleared (obviously)
     // when the LoginServer is restarted
-    std::map <uint32, std::map<uint32, int>> s_nonSessionTestingAccountSwgFeatureIds;
-    std::map <uint32, std::map<uint32, int>> s_nonSessionTestingAccountSwgTcgFeatureIds;
+    std::map <uint32, std::map<uint32, int32_t>> s_nonSessionTestingAccountSwgFeatureIds;
+    std::map <uint32, std::map<uint32, int32_t>> s_nonSessionTestingAccountSwgTcgFeatureIds;
 }
 
 //-----------------------------------------------------------------------
@@ -191,12 +191,12 @@ LoginServer::~LoginServer() {
 
 //-----------------------------------------------------------------------
 
-int LoginServer::addClient(ClientConnection &client) {
+int32_t LoginServer::addClient(ClientConnection &client) {
     DEBUG_FATAL(client.getIsValidated(), ("Tried to add an already validated client?!"));
     //Perhaps add a debug only check to make sure a client connection isn't in twice...I'm not sure how that could happen.
 
-    static int nextClientId = 0;
-    int tmp = ++nextClientId;
+    static int32_t nextClientId = 0;
+    int32_t tmp = ++nextClientId;
     m_clientMap[tmp] = &client;
     return tmp;
 }
@@ -213,9 +213,9 @@ ClientConnection *LoginServer::getValidatedClient(const StationId &clientId) {
 
 //-----------------------------------------------------------------------
 
-ClientConnection *LoginServer::getUnvalidatedClient(int clientId) {
+ClientConnection *LoginServer::getUnvalidatedClient(int32_t clientId) {
     WARNING_STRICT_FATAL(clientId == 0, ("Tried to get an unvalidated client with client id == 0"));
-    std::map<int, ClientConnection *>::iterator i = m_clientMap.find(clientId);
+    std::map<int32_t, ClientConnection *>::iterator i = m_clientMap.find(clientId);
     if (i == m_clientMap.end()) {
         return 0;
     }
@@ -224,8 +224,8 @@ ClientConnection *LoginServer::getUnvalidatedClient(int clientId) {
 }
 //-----------------------------------------------------------------------
 
-void LoginServer::removeClient(int clientId) {
-    std::map<int, ClientConnection *>::iterator i = m_clientMap.find(clientId);
+void LoginServer::removeClient(int32_t clientId) {
+    std::map<int32_t, ClientConnection *>::iterator i = m_clientMap.find(clientId);
     if (i != m_clientMap.end()) {
         if (i->second->getIsValidated()) {
             IGNORE_RETURN(m_validatedClientMap.erase(i->second->getStationId()));
@@ -306,8 +306,8 @@ KeyShare::Token LoginServer::makeToken(const unsigned char *const data, const ui
 //-----------------------------------------------------------------------
 
 void LoginServer::pushAllKeys(CentralServerConnection *targetGameServer) const {
-    for (int i = static_cast<int>(keyServer->getKeyCount()) - 1; i >= 0; i--) {
-        LoginKeyPush pk(keyServer->getKey(static_cast<unsigned int>(i)));
+    for (int32_t i = static_cast<int32_t>(keyServer->getKeyCount()) - 1; i >= 0; i--) {
+        LoginKeyPush pk(keyServer->getKey(static_cast<uint32_t>(i)));
         targetGameServer->send(pk, true);
     }
 }
@@ -530,18 +530,18 @@ void LoginServer::receiveMessage(const MessageDispatch::Emitter &source, const M
                 // for testing purpose when not using session authentication, store
                 // the account feature Ids locally in memory, which will get cleared
                 // (obviously) when the LoginServer is restarted
-                std::map <uint32, std::map<uint32, int>> *nonSessionTestingAccountFeatureIds = nullptr;
+                std::map <uint32, std::map<uint32, int32_t>> *nonSessionTestingAccountFeatureIds = nullptr;
                 if (msg.getGameCode() == PlatformGameCode::SWG) {
                     nonSessionTestingAccountFeatureIds = &s_nonSessionTestingAccountSwgFeatureIds;
                 } else if (msg.getGameCode() == PlatformGameCode::SWGTCG) {
                     nonSessionTestingAccountFeatureIds = &s_nonSessionTestingAccountSwgTcgFeatureIds;
                 }
 
-                int currentFeatureIdCount = 0;
-                int updatedFeatureIdCount = 0;
+                int32_t currentFeatureIdCount = 0;
+                int32_t updatedFeatureIdCount = 0;
                 if (nonSessionTestingAccountFeatureIds) {
-                    std::map<uint32, int> &accountFeatureIds = (*nonSessionTestingAccountFeatureIds)[msg.getTargetStationId()];
-                    std::map<uint32, int>::const_iterator accountFeatureId = accountFeatureIds.find(msg.getFeatureId());
+                    std::map<uint32, int32_t> &accountFeatureIds = (*nonSessionTestingAccountFeatureIds)[msg.getTargetStationId()];
+                    std::map<uint32, int32_t>::const_iterator accountFeatureId = accountFeatureIds.find(msg.getFeatureId());
                     if (accountFeatureId != accountFeatureIds.end()) {
                         currentFeatureIdCount = accountFeatureId->second;
                     }
@@ -587,18 +587,18 @@ void LoginServer::receiveMessage(const MessageDispatch::Emitter &source, const M
                 // for testing purpose when not using session authentication, store
                 // the account feature Ids locally in memory, which will get cleared
                 // (obviously) when the LoginServer is restarted
-                std::map <uint32, std::map<uint32, int>> *nonSessionTestingAccountFeatureIds = nullptr;
+                std::map <uint32, std::map<uint32, int32_t>> *nonSessionTestingAccountFeatureIds = nullptr;
                 if (msg.getGameCode() == PlatformGameCode::SWG) {
                     nonSessionTestingAccountFeatureIds = &s_nonSessionTestingAccountSwgFeatureIds;
                 } else if (msg.getGameCode() == PlatformGameCode::SWGTCG) {
                     nonSessionTestingAccountFeatureIds = &s_nonSessionTestingAccountSwgTcgFeatureIds;
                 }
 
-                static std::map<uint32, int> const empty;
-                std::map<uint32, int> const *accountFeatureIds = &empty;
+                static std::map<uint32, int32_t> const empty;
+                std::map<uint32, int32_t> const *accountFeatureIds = &empty;
 
                 if (nonSessionTestingAccountFeatureIds) {
-                    std::map < uint32, std::map < uint32, int > > ::const_iterator
+                    std::map < uint32, std::map < uint32, int32_t > > ::const_iterator
                     iterFind = nonSessionTestingAccountFeatureIds->find(msg.getTargetStationId());
                     if (iterFind != nonSessionTestingAccountFeatureIds->end()) {
                         accountFeatureIds = &(iterFind->second);
@@ -823,9 +823,9 @@ void LoginServer::receiveMessage(const MessageDispatch::Emitter &source, const M
                         // for testing purpose when not using session authentication, store
                         // the account feature Ids locally in memory, which will get cleared
                         // (obviously) when the LoginServer is restarted
-                        std::map<uint32, int> &accountFeatureIds = s_nonSessionTestingAccountSwgFeatureIds[msg->getStationId()];
-                        std::map<uint32, int>::const_iterator accountFeatureId = accountFeatureIds.find(requiredAccountFeatureId);
-                        int currentFeatureIdCount = 0;
+                        std::map<uint32, int32_t> &accountFeatureIds = s_nonSessionTestingAccountSwgFeatureIds[msg->getStationId()];
+                        std::map<uint32, int32_t>::const_iterator accountFeatureId = accountFeatureIds.find(requiredAccountFeatureId);
+                        int32_t currentFeatureIdCount = 0;
                         if (accountFeatureId != accountFeatureIds.end()) {
                             currentFeatureIdCount = accountFeatureId->second;
                         }
@@ -841,7 +841,7 @@ void LoginServer::receiveMessage(const MessageDispatch::Emitter &source, const M
                             sendToCluster(conn->getClusterId(), rsp);
                         } else {
                             // account has required feature id so claim is success, so update feature id for claim
-                            int const updatedFeatureIdCount = (consumeAccountFeatureId ? std::max(0,
+                            int32_t const updatedFeatureIdCount = (consumeAccountFeatureId ? std::max(0,
                                                                                                   currentFeatureIdCount -
                                                                                                   1)
                                                                                        : currentFeatureIdCount);
@@ -932,7 +932,7 @@ void LoginServer::receiveMessage(const MessageDispatch::Emitter &source, const M
  * @see DatabaseConnection::getAccountValidationData
  */
 void
-LoginServer::validateAccount(const StationId &stationId, uint32 clusterId, uint32 subscriptionBits, bool canCreateRegular, bool canCreateJedi, bool canSkipTutorial, unsigned int track, std::vector <std::pair<NetworkId, std::string>> const &consumedRewardEvents, std::vector <std::pair<NetworkId, std::string>> const &claimedRewardItems) {
+LoginServer::validateAccount(const StationId &stationId, uint32 clusterId, uint32 subscriptionBits, bool canCreateRegular, bool canCreateJedi, bool canSkipTutorial, uint32 track, std::vector <std::pair<NetworkId, std::string>> const &consumedRewardEvents, std::vector <std::pair<NetworkId, std::string>> const &claimedRewardItems) {
     bool canLogin = false;
 
     ClusterListEntry *cle = findClusterById(clusterId);
@@ -1038,7 +1038,7 @@ void LoginServer::run(void) {
     unsigned long totalTime = 0;
 
     // load authentication data and bind the monitor to the port
-    const int port = ConfigLoginServer::getMetricsListenerPort();
+    const int32_t port = ConfigLoginServer::getMetricsListenerPort();
     CMonitorAPI *mon = nullptr;
 
     if (port) {
@@ -1090,8 +1090,8 @@ void LoginServer::run(void) {
         NetworkHandler::clearBytesThisFrame();
 
         if (port) {
-            mon->set(WORLD_COUNT_CHANNEL, static_cast<int>(getInstance().m_clientMap.size()));
-            int count = 0;
+            mon->set(WORLD_COUNT_CHANNEL, static_cast<int32_t>(getInstance().m_clientMap.size()));
+            int32_t count = 0;
             ClusterListType::const_iterator i;
             for (i = getInstance().m_clusterList.begin(); i != getInstance().m_clusterList.end(); ++i) {
                 if ((*i)->m_connected) {
@@ -1119,7 +1119,7 @@ void LoginServer::run(void) {
 //-----------------------------------------------------------------------
 
 void
-LoginServer::sendAvatarList(const StationId &stationId, int stationIdNumberJediSlot, const AvatarList &avatars, TransferCharacterData *const transferData) {
+LoginServer::sendAvatarList(const StationId &stationId, int32_t stationIdNumberJediSlot, const AvatarList &avatars, TransferCharacterData *const transferData) {
     std::vector <EnumerateCharacterId::Chardata> chardata;
     chardata.reserve(avatars.size());
 
@@ -1176,7 +1176,7 @@ LoginServer::sendAvatarList(const StationId &stationId, int stationIdNumberJediS
 
             // this message ***MUST*** be sent first, as the client expects to
             // receive this information before receiving the avatar list information
-            GenericValueTypeMessage<int> const msgStationIdHasJediSlot("StationIdHasJediSlot", stationIdNumberJediSlot);
+            GenericValueTypeMessage<int32_t> const msgStationIdHasJediSlot("StationIdHasJediSlot", stationIdNumberJediSlot);
             conn->send(msgStationIdHasJediSlot, true);
 
             conn->send(msg, true);
@@ -1397,7 +1397,7 @@ void LoginServer::sendClusterStatus(ClientConnection &conn) const {
     // connection server will force disconnect non-secure connections if they are required by configuration.
     const bool clientIsPrivate = conn.getAdminLevel() > 0;
 
-    const unsigned int subscriptionBits = conn.getSubscriptionBits();
+    const uint32_t subscriptionBits = conn.getSubscriptionBits();
     const bool isFreeTrialAccount = (((subscriptionBits & ClientSubscriptionFeature::FreeTrial) != 0) &&
                                      ((subscriptionBits & ClientSubscriptionFeature::Base) == 0));
 
@@ -1540,7 +1540,7 @@ LoginServer::ClusterListEntry::ClusterListEntry()
  * If we don't know about the cluster already, add it to the list.
  */
 void
-LoginServer::updateClusterData(uint32 clusterId, const std::string &clusterName, const std::string &address, const uint16 port, bool secret, bool locked, bool notRecommended, int maxCharactersPerAccount, int onlinePlayerLimit, int onlineFreeTrialLimit, bool freeTrialCanCreateChar, int onlineTutorialLimit) {
+LoginServer::updateClusterData(uint32 clusterId, const std::string &clusterName, const std::string &address, const uint16 port, bool secret, bool locked, bool notRecommended, int32_t maxCharactersPerAccount, int32_t onlinePlayerLimit, int32_t onlineFreeTrialLimit, bool freeTrialCanCreateChar, int32_t onlineTutorialLimit) {
     ClusterListEntry *cle = findClusterById(clusterId);
 
     if (ConfigLoginServer::getDevelopmentMode()) {
@@ -1781,7 +1781,7 @@ void LoginServer::getClusterIds(std::vector <uint32> result) {
 // ----------------------------------------------------------------------
 
 void
-LoginServer::setClusterInfoByName(const std::string &name, const std::string &branch, int changelist, const std::string &networkVersion) {
+LoginServer::setClusterInfoByName(const std::string &name, const std::string &branch, int32_t changelist, const std::string &networkVersion) {
     ClusterListEntry *entry = findClusterByName(name);
 
     if (entry) {

@@ -19,9 +19,9 @@ NAMESPACE_BEGIN(CryptoPP)
 // this one may be faster on a Pentium
 // #define GETBYTE(x, y) (((byte *)&(x))[y])
 
-unsigned int Parity(unsigned long);
-unsigned int BytePrecision(unsigned long);
-unsigned int BitPrecision(unsigned long);
+uint32_t Parity(unsigned long);
+uint32_t BytePrecision(unsigned long);
+uint32_t BitPrecision(unsigned long);
 unsigned long Crop(unsigned long, uint32_t size);
 
 inline uint32_t bitsToBytes(uint32_t bitCount)
@@ -474,7 +474,7 @@ class FixedKeyLength
 public:
 	enum {KEYLENGTH=N, MIN_KEYLENGTH=N, MAX_KEYLENGTH=N, DEFAULT_KEYLENGTH=N};
 	/// returns the key length
-	static unsigned int KeyLength(uint32_t) {return KEYLENGTH;}
+	static uint32_t KeyLength(uint32_t) {return KEYLENGTH;}
 };
 
 /// support query of variable key length, template parameters are default, min, max, multiple (default multiple 1)
@@ -570,7 +570,7 @@ template <class T> struct SecBlock
 	T* End()
 		{return ptr+size;}
 
-	unsigned int Size() const {return size;}
+	uint32_t Size() const {return size;}
 
 	void Assign(const T *t, uint32_t len)
 	{
