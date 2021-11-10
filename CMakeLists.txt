@@ -110,6 +110,8 @@ elseif (UNIX)
     elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Intel")
         set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
     endif ()
+    
+    message("testing only")
 
     # our "always on" flags - build by default for the system we're on but include all instruction sets
     set(CMAKE_CXX_FLAGS "-m32 -pipe -march=native -mtune=native \
