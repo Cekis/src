@@ -1,3 +1,9 @@
+find_path(PCRE_ROOT
+	PATHS ${SWG_EXTERNALS_FIND}
+	PATH_SUFFIXES pcre/4.1/win32
+    NAMES include/pcre.h
+)
+
 find_path(PCRE_INCLUDE_DIR pcre.h
     HINTS
         $ENV{PCRE_ROOT}
