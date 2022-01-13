@@ -23,7 +23,7 @@ jobs:
       - name: Checkout Project
         uses: actions/checkout@v2
       - name: Move cloned repo (enhancement req to actions/checkout)
-        run: mv src-${{ github.run_id }}-${{ github.run_number }} /home/swg/swg-main/src
+        run: mv /__w/src/src /home/swg/swg-main/src
       - name: Run ANT Build
         run: |
           cd /home/swg/swg-main/src
