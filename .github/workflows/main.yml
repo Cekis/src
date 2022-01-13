@@ -20,7 +20,11 @@ jobs:
     runs-on: ubuntu-latest
     container: cekisswg/swg-build:latest
     steps:
+      - name: What dir are we in?
+        run: pwd
+      - name: Change dir to swg-main
+        run: cd /home/swg/swg-main
       - name: Checkout Project
         uses: actions/checkout@v1
-      - run: ant build_src
-        name: Run ANT build
+      - name: Run ANT Build
+        run: ant build_src
