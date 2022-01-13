@@ -22,8 +22,6 @@ jobs:
     steps:
       - name: Checkout Project
         uses: actions/checkout@v2
-        with:
-          path: /home/swg/swg-main
       - name: Move cloned repo (enhancement req to actions/checkout)
         run: mv src-${{ github.run_id }}-${{ github.run_number }} /home/swg/swg-main/src
       - name: Run ANT Build
