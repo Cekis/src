@@ -22,9 +22,12 @@ jobs:
     steps:
       - name: What dir are we in?
         run: pwd
-      - name: Change dir to swg-main
-        run: cd /home/swg/swg-main
       - name: Checkout Project
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
+        with:
+          path: /home/swg/swg-main
       - name: Run ANT Build
-        run: ant build_src
+        run: |
+          cd /home/swg/swg-main
+          ant build_src
+          
