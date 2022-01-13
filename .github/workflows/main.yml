@@ -24,10 +24,10 @@ jobs:
         uses: actions/checkout@v2
         with:
           path: /home/swg/swg-main
-      - name: Check dir structure
-        run: ls -lsa /home/swg/swg-main
+      - name: Move cloned repo (enhancement req to actions/checkout)
+        run: mv src-${{ github.run_id }}-${{ github.run_number }} /home/swg/swg-main/src
       - name: Run ANT Build
         run: |
-          cd /home/swg/swg-main
+          cd /home/swg/swg-main/src
           ant build_src
           
