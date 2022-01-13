@@ -22,8 +22,12 @@ jobs:
     steps:
       - name: Checkout Project
         uses: actions/checkout@v2
+        with:
+          path: /home/swg/swg-main
       - name: Check dir structure
         run: ls -lsa /home/swg/swg-main
       - name: Run ANT Build
-        run: ant build_src
+        run: |
+          cd /home/swg/swg-main
+          ant build_src
           
