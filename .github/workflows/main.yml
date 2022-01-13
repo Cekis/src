@@ -22,7 +22,5 @@ jobs:
     steps:
       - name: Checkout Project
         uses: actions/checkout@v1
-      - run: cd src
-        name: Change to the new dir
       - run: ant build_src
         name: Run ANT build
