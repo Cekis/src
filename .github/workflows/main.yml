@@ -16,18 +16,14 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  container:
+  build:
     runs-on: ubuntu-latest
     container: cekisswg/swg-build:latest
     steps:
-      - name: What dir are we in?
-        run: pwd
       - name: Checkout Project
         uses: actions/checkout@v2
-        with:
-          path: /home/swg/swg-main
+      - name: Check dir structure
+        run: ls -lsa /home/swg/swg-main
       - name: Run ANT Build
-        run: |
-          cd /home/swg/swg-main
-          ant build_src
+        run: ant build_src
           
