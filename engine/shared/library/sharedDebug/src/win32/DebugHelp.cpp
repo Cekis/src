@@ -561,7 +561,7 @@ void DebugHelp::reportCallStack(int const maxStackDepth)
 
 // ----------------------------------------------------------------------
 
-bool DebugHelp::lookupAddress(uint32 address, char *libName, char *fileName, int fileNameLength, int &line)
+bool DebugHelp::lookupAddress(uintptr_t address, char *libName, char *fileName, int fileNameLength, int &line)
 {
 	UNREF(libName);
 

@@ -105,11 +105,11 @@ public:
 	float                getPlayedTimeAccumOnly() const;
 	void                 setPlayedTimeAccumOnly(float playedTimeAccum);
 
-	unsigned long        getSessionPlayTimeDuration() const;
-	unsigned long        getSessionActivePlayTimeDuration() const;
+	uint32               getSessionPlayTimeDuration() const;
+	uint32               getSessionActivePlayTimeDuration() const;
 	int32                getSessionStartPlayTime() const;
 	int32                getSessionLastActiveTime() const;
-	void                 setSessionPlayTimeInfo(int32 sessionStartPlayTime, int32 sessionLastActiveTime, unsigned long sessionActivePlayTimeDuration);
+	void                 setSessionPlayTimeInfo(int32 sessionStartPlayTime, int32 sessionLastActiveTime, uint32 sessionActivePlayTimeDuration);
 
 	void                 setStationId(StationId account);
 	void                 setCheaterLevel(float level);
@@ -554,7 +554,7 @@ private:
 	// cached here for use by the game server
 	Archive::AutoDeltaVariable<int32>                         m_sessionStartPlayTime;          // time when the player started playing the character
 	Archive::AutoDeltaVariable<int32>                         m_sessionLastActiveTime;         // the client will detect when the player is "active" or "inactive"; this keeps track of the last time that the client said the player was "active"; if 0, it means the client is currently "inactive"
-	Archive::AutoDeltaVariable<unsigned long>                 m_sessionActivePlayTimeDuration; // total amount of play time player was active (i.e. at the mouse/keyboard/joystick)
+	Archive::AutoDeltaVariable<uint32>                        m_sessionActivePlayTimeDuration; // total amount of play time player was active (i.e. at the mouse/keyboard/joystick)
 
 	Archive::AutoDeltaVariable<int>                           m_food;
 	Archive::AutoDeltaVariable<int>                           m_maxFood;

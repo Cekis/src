@@ -61,35 +61,35 @@ extern "C"
 
 void *operator new(size_t size, MemoryManagerNotALeak)
 {
-	return MemoryManager::allocate(size, reinterpret_cast<uint32>(__builtin_return_address(0)), false, false);
+	return MemoryManager::allocate(size, reinterpret_cast<uintptr_t>(__builtin_return_address(0)), false, false);
 }
 
 // ----------------------------------------------------------------------
 
 void *operator new(std::size_t size)
 {
-	return MemoryManager::allocate(size, reinterpret_cast<uint32>(__builtin_return_address(0)), false, true);
+	return MemoryManager::allocate(size, reinterpret_cast<uintptr_t>(__builtin_return_address(0)), false, true);
 }
 
 // ----------------------------------------------------------------------
 
 void *operator new[](size_t size)
 {
-	return MemoryManager::allocate(size, reinterpret_cast<uint32>(__builtin_return_address(0)), true, true);
+	return MemoryManager::allocate(size, reinterpret_cast<uintptr_t>(__builtin_return_address(0)), true, true);
 }
 
 // ----------------------------------------------------------------------
 
 void *operator new(size_t size, const char *file, int line)
 {
-	return MemoryManager::allocate(size, reinterpret_cast<uint32>(__builtin_return_address(0)), false, true);
+	return MemoryManager::allocate(size, reinterpret_cast<uintptr_t>(__builtin_return_address(0)), false, true);
 }
 
 // ----------------------------------------------------------------------
 
 void *operator new[](size_t size, const char *file, int line)
 {
-	return MemoryManager::allocate(size, reinterpret_cast<uint32>(__builtin_return_address(0)), true, true);
+	return MemoryManager::allocate(size, reinterpret_cast<uintptr_t>(__builtin_return_address(0)), true, true);
 }
 
 // ----------------------------------------------------------------------

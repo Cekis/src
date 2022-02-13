@@ -19,8 +19,10 @@
 #include "UnicodeUtils.h"
 #include "serverNetworkMessages/AuctionBase.h"
 
+#include <string>
+
 #ifdef _WIN32
-#define atoll(a) _atoi64(a)
+#define atoll(a) _atoi64(a) // may need to define a stoll() as well
 #endif
 
 // ======================================================================
@@ -73,7 +75,7 @@ void CommoditiesMarketListener::OnAddAuction(int requestId, int result, const Ne
 			
 	}
 
-	CommoditiesMarket::onAddAuction(requestId, result, auctionOwnerId, ownerName, itemId, vendorId, vendorName, NetworkId(atoll(findNetworkId(location.c_str()))));
+	CommoditiesMarket::onAddAuction(requestId, result, auctionOwnerId, ownerName, itemId, vendorId, vendorName, NetworkId(static_cast<int64_t>(std::stoll(findNetworkId(location.c_str())))));
 }
 
 // ----------------------------------------------------------------------
@@ -93,7 +95,7 @@ void CommoditiesMarketListener::OnAddBid(int requestId, int result, const Networ
 //  toolow
 
 	
-	CommoditiesMarket::onAddBid(result, itemId, bidPlayerId, previousBidderId, maxProxyBidAmount, previousBid, NetworkId(atoll(findNetworkId(location.c_str()))), success, auctionOwnerId, ownerName, previousBidderName, itemNameLength, itemName, salesTaxAmount, salesTaxBankId);
+	CommoditiesMarket::onAddBid(result, itemId, bidPlayerId, previousBidderId, maxProxyBidAmount, previousBid, NetworkId(static_cast<int64_t>(std::stoll(findNetworkId(location.c_str())))), success, auctionOwnerId, ownerName, previousBidderName, itemNameLength, itemName, salesTaxAmount, salesTaxBankId);
 }
 
 // ----------------------------------------------------------------------
@@ -219,7 +221,7 @@ void CommoditiesMarketListener::OnCreateVendorMarket(int requestId, int result, 
 	UNREF(requestId); 
 	UNREF(ownerId);
 
-	CommoditiesMarket::onCreateVendorMarket(result, ownerId, NetworkId(atoll(findNetworkId(location.c_str()))));
+	CommoditiesMarket::onCreateVendorMarket(result, ownerId, NetworkId(static_cast<int64_t>(std::stoll(findNetworkId(location.c_str())))));
 }
 
 // ----------------------------------------------------------------------

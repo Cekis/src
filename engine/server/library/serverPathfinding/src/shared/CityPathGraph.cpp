@@ -709,7 +709,7 @@ void CityPathGraph::setLinkDistance ( float dist )
 // we cast the addresses of all the neighbors to ints, multiply them
 // by a random large prime number, then xor the bits together.
 
-int CityPathGraph::getNeighborCode ( int whichNode ) const
+intptr_t CityPathGraph::getNeighborCode ( int whichNode ) const
 {
 	CityPathNode const * node = _getNode(whichNode);
 
@@ -717,7 +717,7 @@ int CityPathGraph::getNeighborCode ( int whichNode ) const
 
 	int edgeCount = node->getEdgeCount();
 
-	int code = 0;
+	intptr_t code = 0;
 
 	for(int i = 0; i < edgeCount; i++)
 	{
@@ -727,9 +727,9 @@ int CityPathGraph::getNeighborCode ( int whichNode ) const
 
 		if(neighbor == NULL) continue;
 
-		int neighborInt = reinterpret_cast<int>(neighbor);
+		intptr_t neighborInt = reinterpret_cast<intptr_t>(neighbor);
 
-		int mungedInt = neighborInt * 1295183;
+		intptr_t mungedInt = neighborInt * 1295183;
 
 		code ^= mungedInt;
 	}

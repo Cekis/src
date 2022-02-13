@@ -6116,7 +6116,7 @@ void PlayerObject::getByteStreamFromAutoVariable(const std::string & name, Archi
 {
 	if(name == "quests")
 	{
-		Archive::AutoDeltaMap<unsigned long, PlayerQuestData>(m_quests).pack(target);
+		Archive::AutoDeltaMap<uint32_t, PlayerQuestData>(m_quests).pack(target);
 	}
 	else if(name == "completedQuests")
 	{
@@ -6203,11 +6203,11 @@ void PlayerObject::setAutoVariableFromByteStream(const std::string & name, const
 	Archive::ReadIterator ri(source);
 	if(name == "quests")
 	{
-		typedef Archive::AutoDeltaMap<unsigned long, PlayerQuestData>::Command Commands;
+		typedef Archive::AutoDeltaMap<uint32_t, PlayerQuestData>::Command Commands;
 		std::vector<Commands> quests;
 
 		m_quests.clear();
-		Archive::AutoDeltaMap<unsigned long, PlayerQuestData>(m_quests).unpack(ri, quests);
+		Archive::AutoDeltaMap<uint32_t, PlayerQuestData>(m_quests).unpack(ri, quests);
 
 		for (std::vector<Commands>::const_iterator questIter = quests.begin(); questIter != quests.end(); ++questIter)
 		{
@@ -6338,14 +6338,14 @@ void PlayerObject::setPlayedTimeAccumOnly(float playedTimeAccum)
 
 // ----------------------------------------------------------------------
 
-unsigned long PlayerObject::getSessionPlayTimeDuration() const
+uint32_t PlayerObject::getSessionPlayTimeDuration() const
 {
 	time_t const sessionStartPlayTime = static_cast<time_t>(m_sessionStartPlayTime.get());
 	if (sessionStartPlayTime > 0)
 	{
 		time_t const now = ::time(NULL);
 		if (now > sessionStartPlayTime)
-			return static_cast<unsigned long>(now - sessionStartPlayTime);
+			return static_cast<uint32_t>(now - sessionStartPlayTime);
 	}
 
 	return 0;
@@ -6353,16 +6353,16 @@ unsigned long PlayerObject::getSessionPlayTimeDuration() const
 
 // ----------------------------------------------------------------------
 
-unsigned long PlayerObject::getSessionActivePlayTimeDuration() const
+uint32_t PlayerObject::getSessionActivePlayTimeDuration() const
 {
-	unsigned long activePlayTimeDuration = m_sessionActivePlayTimeDuration.get();
+	uint32_t activePlayTimeDuration = m_sessionActivePlayTimeDuration.get();
 
 	time_t const sessionLastActiveTime = static_cast<time_t>(m_sessionLastActiveTime.get());
 	if (sessionLastActiveTime > 0)
 	{
 		time_t const now = ::time(NULL);
 		if (now > sessionLastActiveTime)
-			activePlayTimeDuration += static_cast<unsigned long>(now - sessionLastActiveTime);
+			activePlayTimeDuration += static_cast<uint32_t>(now - sessionLastActiveTime);
 	}
 
 	return activePlayTimeDuration;
@@ -6370,7 +6370,7 @@ unsigned long PlayerObject::getSessionActivePlayTimeDuration() const
 
 // ----------------------------------------------------------------------
 
-void PlayerObject::setSessionPlayTimeInfo(int32 sessionStartPlayTime, int32 sessionLastActiveTime, unsigned long sessionActivePlayTimeDuration)
+void PlayerObject::setSessionPlayTimeInfo(int32 sessionStartPlayTime, int32 sessionLastActiveTime, uint32_t sessionActivePlayTimeDuration)
 {
 	// shouldn't be calling this on a non-auth object
 	if (!isAuthoritative())

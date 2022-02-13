@@ -8742,7 +8742,7 @@ void CreatureObject::setGuildId(int guildId)
 
 //-----------------------------------------------------------------------
 
-void CreatureObject::setTimeToUpdateGuildWarPvpStatus(unsigned long timeToUpdateGuildWarPvpStatus)
+void CreatureObject::setTimeToUpdateGuildWarPvpStatus(uint32_t timeToUpdateGuildWarPvpStatus)
 {
 	FATAL(!isAuthoritative(), ("setTimeToUpdateGuildWarPvpStatus called on nonauthoritative object"));
 	m_timeToUpdateGuildWarPvpStatus = timeToUpdateGuildWarPvpStatus;

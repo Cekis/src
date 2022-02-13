@@ -21,7 +21,7 @@ class NetworkId
 {
 public:
 
-	typedef int64 NetworkIdType;
+	typedef int64_t NetworkIdType;
 
 	static const NetworkId cms_invalid;
 	static const NetworkIdType cms_maxNetworkIdWithoutClusterId;
@@ -68,7 +68,7 @@ private:
 	friend class DB::BindableNetworkId;
 
   private:
-	explicit NetworkId(int value); // catch people who incorrectly try to construct one of these from an int
+	explicit NetworkId(int32_t value); // catch people who incorrectly try to construct one of these from an int
 	// also makes constructing one of these from any other incorrect numeric type ambiguous
 };
 

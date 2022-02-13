@@ -10,6 +10,8 @@
 #ifndef INCLUDED_DebugKey_H
 #define INCLUDED_DebugKey_H
 
+#include <vector>
+
 // ======================================================================
 
 class DebugKey
@@ -41,7 +43,7 @@ private:
 		bool operator <(const Flag &rhs) const;
 	};
 
-	typedef stdvector<Flag>::fwd FlagVector;
+	typedef std::vector<Flag> FlagVector;
 
 private:
 

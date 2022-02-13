@@ -7,6 +7,7 @@
 
 #ifdef linux
 #include <sys/bitypes.h>
+#include <stdint.h>
 #endif
 
 #if 0
@@ -61,9 +62,9 @@ namespace soe
 #elif linux
 
 	typedef int32_t                 int32;
-	typedef u_int32_t               uint32;
+	typedef uint32_t               uint32;
 	typedef int64_t                 int64;
-	typedef u_int64_t               uint64;
+	typedef uint64_t               uint64;
 //! the previous seem erroneous
 //	typedef signed int              int32;
 //	typedef unsigned int            uint32;

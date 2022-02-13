@@ -1117,11 +1117,14 @@ jobject JNICALL ScriptMethodsDataTableNamespace::dataTableGetRow(JNIEnv *env, jo
 		JavaLibrary::throwInternalScriptError("Java script attempted to get an invalid row from a datatable");
 		return 0;
 	}
-
 	
 	LocalRefPtr target = createNewObject(JavaLibrary::getClsDictionary(), JavaLibrary::getMidDictionary());
 	if (target == LocalRef::cms_nullPtr)
-		return false;
+	{
+		DEBUG_WARNING(true, ("Could not create new java object from dictionary.", row));
+		JavaLibrary::throwInternalScriptError("Could not create a new java object from the given dictionary references.");
+		return 0;
+    }
 
 	for (int i = 0; i < dt->getNumColumns(); ++i)
 	{

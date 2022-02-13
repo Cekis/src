@@ -31,6 +31,7 @@ namespace Archive
 class TransferCharacterData
 {
 public:
+	TransferCharacterData();
 	TransferCharacterData(const TransferCharacterData & rhs);
 	TransferCharacterData(TransferRequestMoveValidation::TransferRequestSource transferRequestSource);
 
@@ -105,8 +106,6 @@ public:
 	void                                setCSToolId                   (const unsigned int toolId);
 
 private:
-	TransferCharacterData();
-
 	friend class Archive::AutoVariable<TransferCharacterData>;
 	friend struct std::pair<std::string, TransferCharacterData>;
 	friend void Archive::get(Archive::ReadIterator & source, TransferCharacterData & target);

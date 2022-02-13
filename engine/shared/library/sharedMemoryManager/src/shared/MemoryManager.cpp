@@ -1191,7 +1191,7 @@ FreeBlock *MemoryManagerNamespace::searchFreeList(int blockSize)
  * @param array  True if the array form of operator new was used, false if the scalar form was used
  */
 
-void * MemoryManager::allocate(size_t size, uint32 owner, bool array, bool leakTest)
+void * MemoryManager::allocate(size_t size, uintptr_t owner, bool array, bool leakTest)
 {
 	if (!ms_installed)
 		new(ms_memoryManagerBuffer) MemoryManager;
@@ -1785,11 +1785,11 @@ void MemoryManagerNamespace::report(AllocatedBlock const * block, bool leak)
 	int const requestedSize = 0;
 #endif
 
-	char      buffer[256];
-	char      libName[256];
-	char      fileName[256];
-	int       line = 0;
-	int const memory = reinterpret_cast<int>(reinterpret_cast<byte const *>(block) + cms_allocatedBlockSize + cms_guardBandSize);
+	char            buffer[256];
+	char            libName[256];
+	char            fileName[256];
+	int             line = 0;
+	uintptr_t const memory = reinterpret_cast<uintptr_t>(reinterpret_cast<byte const *>(block) + cms_allocatedBlockSize + cms_guardBandSize);
 
 	if (ms_allowNameLookup && DebugHelp::lookupAddress(owner, libName, fileName, sizeof(fileName), line))
 	{

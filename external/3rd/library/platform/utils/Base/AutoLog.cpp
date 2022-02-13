@@ -292,7 +292,7 @@ void CAutoLog::Archive(void)
     else
         sprintf(strCurrent,".");
 
-	sprintf(strPath,"%s"SLASHCHAR"%s", strCurrent, strTime);                   // logs/041698
+	sprintf(strPath,"%s" SLASHCHAR "%s", strCurrent, strTime);                   // logs/041698
 
 #ifdef WIN32
     // remember current directory
@@ -335,7 +335,7 @@ void CAutoLog::Archive(void)
     else
         pCurrent++;
 
-    sprintf(strCurrent,"%s"SLASHCHAR"%s",strPath,pCurrent);
+    sprintf(strCurrent,"%s" SLASHCHAR "%s",strPath,pCurrent);
 
     fflush(pFile);
     fclose(pFile);

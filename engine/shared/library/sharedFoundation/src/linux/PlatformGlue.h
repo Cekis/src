@@ -9,17 +9,17 @@
 #include <unistd.h>
 #include <pthread.h>
 
-typedef unsigned short int WORD;
-typedef unsigned long int DWORD;
+typedef uint16_t WORD;
+typedef uint32_t DWORD;
 typedef bool BOOL;
-typedef long long     __int64; //lint !e13 !e19 // Error: 13 (Bad type), Error: 19 (Useless declaration) // -TRF- Lint preprocessor discrepency, @todo look into this.
-typedef __int64         LARGE_INTEGER;
+typedef int64_t     __int64; //lint !e13 !e19 // Error: 13 (Bad type), Error: 19 (Useless declaration) // -TRF- Lint preprocessor discrepency, @todo look into this.
+typedef int64_t     LARGE_INTEGER;
 
 const BOOL FALSE = 0;
 const BOOL TRUE = 1;
 
 
-float abs(float x);
+// float abs(float x);
 int _stricmp(const char* string1, const char* string2);
 
 //String to numeric conversions

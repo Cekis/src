@@ -155,8 +155,8 @@ const TriggerVolumeData & ServerTangibleObjectTemplate::getTriggerVolumes(int in
 	}
 
 	DEBUG_FATAL(index < 0 || static_cast<size_t>(index) >= m_triggerVolumes.size(), ("template param index out of range"));
-	const TriggerVolumeData & value = m_triggerVolumes[index]->getValue();
-	return value;
+
+	return m_triggerVolumes[index]->getValue();
 }	// ServerTangibleObjectTemplate::getTriggerVolumes
 
 size_t ServerTangibleObjectTemplate::getTriggerVolumesCount(void) const

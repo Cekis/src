@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 
 #ifdef EXTERNAL_DISTRO
 namespace NAMESPACE 
@@ -17,10 +18,10 @@ namespace Base
 		BlockAllocator();
 		~BlockAllocator();
 		void *getBlock(unsigned accum);
-		void returnBlock(unsigned *handle);
+		void returnBlock(uintptr_t *handle);
 
 	private:
-		unsigned  *m_blocks[31];
+		uintptr_t  *m_blocks[31];
 	};
 };
 #ifdef EXTERNAL_DISTRO

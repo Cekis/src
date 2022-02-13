@@ -144,6 +144,7 @@
 #include "sharedUtility/DataTableManager.h"
 #include "swgServerNetworkMessages/MessageQueueScriptTransferMoney.h"
 #include <algorithm>
+#include <string>
 
 // ======================================================================
 
@@ -262,7 +263,7 @@ namespace ServerObjectNamespace
 
 	// sentinel to keep the messageTo current being
 	// handled from getting removed from m_messageTos
-	std::pair<std::pair<unsigned long, uint64>, MessageToId> s_currentMessageToBeingHandled = std::make_pair(std::make_pair(0, 0), MessageToId::cms_invalid);
+	std::pair<std::pair<uint32, uint64>, MessageToId> s_currentMessageToBeingHandled = std::make_pair(std::make_pair(0, 0), MessageToId::cms_invalid);
 
 	// ----------------------------------------------------------------------
 
@@ -5052,7 +5053,7 @@ std::string ServerObject::debugGetMessageToList() const
 	unsigned long const now = ServerClock::getInstance().getGameTimeSeconds();
 	std::string result;
 	time_t const timeNow = ::time(NULL);
-	for (Archive::AutoDeltaMap<std::pair<std::pair<unsigned long, uint64>, MessageToId>, MessageToPayload>::const_iterator i=m_messageTos.begin(); i!=m_messageTos.end(); ++i)
+	for (Archive::AutoDeltaMap<std::pair<std::pair<uint32, uint64>, MessageToId>, MessageToPayload>::const_iterator i=m_messageTos.begin(); i!=m_messageTos.end(); ++i)
 	{
 		char temp[256];
 
@@ -5097,7 +5098,7 @@ unsigned long ServerObject::processQueuedMessageTos(unsigned long effectiveMessa
 				std::string nextTenMessages;
 				{
 					int count = 1;
-					for (Archive::AutoDeltaMap<std::pair<std::pair<unsigned long, uint64>, MessageToId>, MessageToPayload>::const_iterator iter = m_messageTos.begin(); ((iter != m_messageTos.end()) && (count <= 10)); ++iter, ++count)
+					for (Archive::AutoDeltaMap<std::pair<std::pair<uint32, uint64>, MessageToId>, MessageToPayload>::const_iterator iter = m_messageTos.begin(); ((iter != m_messageTos.end()) && (count <= 10)); ++iter, ++count)
 					{
 						nextTenMessages += iter->second.getMethod();
 						nextTenMessages += ", ";
@@ -5116,7 +5117,7 @@ unsigned long ServerObject::processQueuedMessageTos(unsigned long effectiveMessa
 				break;
 			}
 
-			Archive::AutoDeltaMap<std::pair<std::pair<unsigned long, uint64>, MessageToId>, MessageToPayload>::const_iterator message = m_messageTos.begin();
+			Archive::AutoDeltaMap<std::pair<std::pair<uint32, uint64>, MessageToId>, MessageToPayload>::const_iterator message = m_messageTos.begin();
 
 			// if the message is going to be recurring, create a
 			// new messageTo to reschedule the recurring message
@@ -5268,7 +5269,7 @@ void ServerObject::handleCMessageTo(const MessageToPayload &message)
 		if (splitPos)
 		{
 			*splitPos = 0;
-			NetworkId recipient(atoll(params));
+			NetworkId recipient(static_cast<int64_t>(std::stoll(params)));
 			int amount = atoi(splitPos+1);
 			transferCashTo(recipient, amount);
 		}
@@ -5283,7 +5284,7 @@ void ServerObject::handleCMessageTo(const MessageToPayload &message)
 		if (splitPos)
 		{
 			*splitPos = 0;
-			NetworkId recipient(atoll(params));
+			NetworkId recipient(static_cast<int64_t>(std::stoll(params)));
 			int amount = atoi(splitPos+1);
 			transferBankCreditsTo(recipient, amount);
 		}
@@ -5344,7 +5345,7 @@ void ServerObject::handleCMessageTo(const MessageToPayload &message)
 	else if (message.getMethod() == "CancelRecurringMessageTo")
 	{
 		std::string const & methodName = message.getDataAsString();
-		for (Archive::AutoDeltaMap<std::pair<std::pair<unsigned long, uint64>, MessageToId>, MessageToPayload>::const_iterator i=m_messageTos.begin(); i!=m_messageTos.end(); ++i)
+		for (Archive::AutoDeltaMap<std::pair<std::pair<uint32, uint64>, MessageToId>, MessageToPayload>::const_iterator i=m_messageTos.begin(); i!=m_messageTos.end(); ++i)
 		{
 			if ((i->second.getRecurringTime() != 0) && (i->second.getMethod() == methodName) && (i->first != s_currentMessageToBeingHandled))
 			{
@@ -7685,7 +7686,7 @@ void ServerObject::deliverMessageTo(MessageToPayload & message)
 	{
 		// Recurring messages can have only one instance each.  Ignore
 		// this message if there is already a recurring one with the same method name.
-		for (Archive::AutoDeltaMap<std::pair<std::pair<unsigned long, uint64>, MessageToId>, MessageToPayload>::const_iterator i=m_messageTos.begin(); i!=m_messageTos.end(); ++i)
+		for (Archive::AutoDeltaMap<std::pair<std::pair<uint32, uint64>, MessageToId>, MessageToPayload>::const_iterator i=m_messageTos.begin(); i!=m_messageTos.end(); ++i)
 		{
 			if ((i->second.getRecurringTime() != 0) && (i->second.getMethod() == message.getMethod()))
 				return;
@@ -7745,7 +7746,7 @@ int ServerObject::cancelMessageTo(std::string const & messageName)
 	{
 		removeCount = 0;
 
-		for (Archive::AutoDeltaMap<std::pair<std::pair<unsigned long, uint64>, MessageToId>, MessageToPayload>::const_iterator i=m_messageTos.begin(); i!=m_messageTos.end();)
+		for (Archive::AutoDeltaMap<std::pair<std::pair<uint32, uint64>, MessageToId>, MessageToPayload>::const_iterator i=m_messageTos.begin(); i!=m_messageTos.end();)
 		{
 			if ((i->second.getMethod() == messageName) && (i->first != s_currentMessageToBeingHandled))
 			{
@@ -7779,7 +7780,7 @@ int ServerObject::cancelMessageToByMessageId(NetworkId const & messageId)
 	{
 		removeCount = 0;
 
-		for (Archive::AutoDeltaMap<std::pair<std::pair<unsigned long, uint64>, MessageToId>, MessageToPayload>::const_iterator i=m_messageTos.begin(); i!=m_messageTos.end();)
+		for (Archive::AutoDeltaMap<std::pair<std::pair<uint32, uint64>, MessageToId>, MessageToPayload>::const_iterator i=m_messageTos.begin(); i!=m_messageTos.end();)
 		{
 			if ((i->second.getMessageId() == messageId) && (i->first != s_currentMessageToBeingHandled))
 			{
@@ -7809,7 +7810,7 @@ int ServerObject::cancelMessageToByMessageId(NetworkId const & messageId)
 // returns -1 if object doesn't have the messageTo
 int ServerObject::timeUntilMessageTo(std::string const & messageName) const
 {
-	for (Archive::AutoDeltaMap<std::pair<std::pair<unsigned long, uint64>, MessageToId>, MessageToPayload>::const_iterator i=m_messageTos.begin(); i!=m_messageTos.end(); ++i)
+	for (Archive::AutoDeltaMap<std::pair<std::pair<uint32, uint64>, MessageToId>, MessageToPayload>::const_iterator i=m_messageTos.begin(); i!=m_messageTos.end(); ++i)
 	{
 		if (i->second.getMethod() == messageName)
 		{

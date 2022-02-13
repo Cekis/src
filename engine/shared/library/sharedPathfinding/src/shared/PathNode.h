@@ -67,8 +67,8 @@ public:
 	int               getUserId     ( void ) const;
 	void              setUserId     ( int newId ) const;
 
-	int               getMark       ( int whichMark ) const;
-	void              setMark       ( int whichMark, int newValue ) const;
+	intptr_t          getMark       ( int whichMark ) const;
+	void              setMark       ( int whichMark, intptr_t newValue ) const;
 	void              clearMarks    ( void ) const;
 
 	// ----------
@@ -96,7 +96,7 @@ protected:
 	// Code that uses the marks MUST clear them after use.
 
 	mutable int  m_userId;
-	mutable int  m_marks[4];
+	mutable intptr_t  m_marks[4];
 };
 
 // ----------------------------------------------------------------------
@@ -214,12 +214,12 @@ inline void PathNode::setUserId ( int newId ) const
 
 // ----------
 
-inline int PathNode::getMark ( int whichMark ) const
+inline intptr_t PathNode::getMark ( int whichMark ) const
 {
 	return m_marks[whichMark];
 }
 
-inline void PathNode::setMark ( int whichMark, int newMark ) const
+inline void PathNode::setMark ( int whichMark, intptr_t newMark ) const
 {
 	m_marks[whichMark] = newMark;
 }

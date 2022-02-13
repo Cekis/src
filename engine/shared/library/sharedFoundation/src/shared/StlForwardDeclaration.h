@@ -34,28 +34,34 @@
 //#include "stl/config/features.h" // uncomment for newer stlport versions
 //#include "stl/_config.h"
 
+#include <string>
+#include <map>
+#include <list>
+#include <vector>
+#include <utility>
+
 namespace std
 {
 	template <class _Tp>                                                                struct less;
 	template <class _Tp>                                                                struct equal_to;
-	template <class _T1, class _T2>                                                     struct pair;
+//	template <class _T1, class _T2>                                                     struct pair;
 	template <class _T1>                                                                struct hash;
 	template <class _Tp>                                                                class  allocator;
-	template <class _CharT, class _Traits, class _Alloc>                                class  basic_string;
+//	template <class _CharT, class _Traits, class _Alloc>                                class  basic_string;
 	template <class _CharT>                                                             struct  char_traits;
 
 	template <size_t _Nb>                                                               class  bitset;
 	template <class _Tp, class _Alloc>                                                  class  deque;
-	template <class _Tp, class _Alloc>                                                  class  list;
+//	template <class _Tp, class _Alloc>                                                  class  list;
 	template <class _Tp, class _Alloc>                                                  class  queue;
-	template <class _Tp, class _Alloc>                                                  class  vector;
+//	template <class _Tp, class _Alloc>                                                  class  vector;
 	template <class _Tp, class _Sequence>                                               class  stack;
 	template <class _Tp, class _Container, class _Compare>                              class  priority_queue;
-	template <class _Key, class _Tp, class _Compare, class _Alloc>                      class  map;
-	//template <class _Key, class _Tp, class _HashFcn, class _Compare, class _Alloc>      class  hash_map;
+//	template <class _Key, class _Tp, class _Compare, class _Alloc>                      class  map;
+//	template <class _Key, class _Tp, class _HashFcn, class _Compare, class _Alloc>      class  hash_map;
 	template <class _Key, class _Tp, class _Compare, class _Alloc>                      class  multimap;
 	template <class _Key, class _Compare, class _Alloc>                                 class  set;
-	//template <class _Key, class _HashFcn, class _Compare, class _Alloc>                 class  hash_set;
+//	template <class _Key, class _HashFcn, class _Compare, class _Alloc>                 class  hash_set;
 	template <class _Key, class _Compare, class _Alloc>                                 class  multiset;
 
 	typedef basic_string<char, char_traits<char>, allocator<char> >                     string;

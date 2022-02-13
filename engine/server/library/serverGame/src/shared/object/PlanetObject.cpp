@@ -2350,7 +2350,7 @@ void PlanetObject::adjustGcwImperialScore(std::string const & source, CreatureOb
 				// grant GCW Region Defender bonus
 				float bonus = 0.0f;
 				if (gcwCategoryData->gcwRegionDefender && PvpData::isImperialFactionId(sourceObject->getPvpFaction()) && (adjustment > 0) && (playerObject->getCurrentGcwRegion() == gcwCategory) && Pvp::getGcwDefenderRegionBonus(*sourceObject, *playerObject, bonus) && (bonus > 0.0f))
-					adjustment += std::max(1ll, static_cast<int64>(static_cast<double>(bonus) * static_cast<double>(adjustment) / static_cast<double>(100)));
+					adjustment += std::max(static_cast<int64>(1), static_cast<int64>(static_cast<double>(bonus) * static_cast<double>(adjustment) / static_cast<double>(100)));
 			}
 
 			LOG("CustomerService", ("GcwScore: imperial %s %d (from %s - %s)", gcwCategory.c_str(), static_cast<int>(adjustment), source.c_str(), sourceObject->getNetworkId().getValueString().c_str()));
@@ -2395,7 +2395,7 @@ void PlanetObject::adjustGcwRebelScore(std::string const & source, CreatureObjec
 				// grant GCW Region Defender bonus
 				float bonus = 0.0f;
 				if (gcwCategoryData->gcwRegionDefender && PvpData::isRebelFactionId(sourceObject->getPvpFaction()) && (adjustment > 0) && (playerObject->getCurrentGcwRegion() == gcwCategory) && Pvp::getGcwDefenderRegionBonus(*sourceObject, *playerObject, bonus) && (bonus > 0.0f))
-					adjustment += std::max(1ll, static_cast<int64>(static_cast<double>(bonus) * static_cast<double>(adjustment) / static_cast<double>(100)));
+					adjustment += std::max(static_cast<int64>(1), static_cast<int64>(static_cast<double>(bonus) * static_cast<double>(adjustment) / static_cast<double>(100)));
 			}
 
 			LOG("CustomerService", ("GcwScore: rebel %s %d (from %s - %s)", gcwCategory.c_str(), static_cast<int>(adjustment), source.c_str(), sourceObject->getNetworkId().getValueString().c_str()));

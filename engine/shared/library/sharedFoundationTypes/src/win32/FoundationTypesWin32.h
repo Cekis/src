@@ -10,6 +10,8 @@
 #ifndef INCLUDED_FoundationTypesWin32_H
 #define INCLUDED_FoundationTypesWin32_H
 
+#include <stdint.h>
+
 // ======================================================================
 // specify what platform we're running on.
 
@@ -19,13 +21,13 @@
 // basic types that we assume to be around
 
 typedef unsigned char          uint8;
-typedef unsigned short         uint16;
-typedef unsigned long          uint32;
-typedef unsigned __int64       uint64;
+typedef uint16_t               uint16;
+typedef uint32_t               uint32;
+typedef uint64_t               uint64;
 typedef signed char            int8;
-typedef signed short           int16;
-typedef signed long            int32;
-typedef signed __int64         int64;
+typedef int16_t                int16;
+typedef int32_t                int32;
+typedef int64_t                int64;
 typedef int                    FILE_HANDLE;
 
 // ======================================================================

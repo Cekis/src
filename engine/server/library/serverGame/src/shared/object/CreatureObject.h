@@ -385,8 +385,8 @@ public:
 	void                            setPerformanceWatchTarget(NetworkId const &who);
 	int                             getGuildId() const;
 	void                            setGuildId(int guildId);
-	unsigned long                   getTimeToUpdateGuildWarPvpStatus() const;
-	void                            setTimeToUpdateGuildWarPvpStatus(unsigned long timeToUpdateGuildWarPvpStatus);
+	uint32_t                        getTimeToUpdateGuildWarPvpStatus() const;
+	void                            setTimeToUpdateGuildWarPvpStatus(uint32_t timeToUpdateGuildWarPvpStatus);
 	bool                            getGuildWarEnabled() const;
 	void                            setGuildWarEnabled(bool guildWarEnabled);
 	int                             getMilitiaOfCityId() const;
@@ -862,7 +862,7 @@ private:
 	// when switching guild war pvp status using the guild war exemption/exclusive list,
 	// add a delay to when the actually switch takes place, to prevent exploit of quickly
 	// switching in and out guiild war pvp using the guild war exemption/exclusive list
-	Archive::AutoDeltaVariable<unsigned long> m_timeToUpdateGuildWarPvpStatus;
+	Archive::AutoDeltaVariable<uint32> m_timeToUpdateGuildWarPvpStatus;
 
 	Archive::AutoDeltaVariableObserver<bool, PvpUpdateObserver, CreatureObject> m_guildWarEnabled;
 	Archive::AutoDeltaVariableObserver<int, PvpUpdateObserver, CreatureObject> m_militiaOfCityId;
@@ -1409,7 +1409,7 @@ inline int CreatureObject::getGuildId() const
 
 //-----------------------------------------------------------------------
 
-inline unsigned long CreatureObject::getTimeToUpdateGuildWarPvpStatus() const
+inline uint32_t CreatureObject::getTimeToUpdateGuildWarPvpStatus() const
 {
 	return m_timeToUpdateGuildWarPvpStatus.get();
 }

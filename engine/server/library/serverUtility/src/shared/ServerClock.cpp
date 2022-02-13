@@ -12,7 +12,7 @@
 
 // ----------------------------------------------------------------------
 
-const unsigned long ServerClock::cms_endOfTime = static_cast<unsigned long>(-1);
+const uint32_t ServerClock::cms_endOfTime = static_cast<uint32_t>(-1);
 
 //-----------------------------------------------------------------------
 
@@ -31,7 +31,7 @@ ServerClock::~ServerClock()
 
 //-----------------------------------------------------------------------
 
-const unsigned long ServerClock::getGameTimeSeconds() const
+const uint32_t ServerClock::getGameTimeSeconds() const
 {
 	FATAL(!isSet(), ("ServerClock::getGameTimeSeconds: Clock was not set."));
 	return int(lastTime - subtractInterval);
@@ -52,14 +52,14 @@ void ServerClock::incrementServerFrame()
 
 //-----------------------------------------------------------------------
 
-void ServerClock::setSubtractInterval(const unsigned long newSubtractInterval)
+void ServerClock::setSubtractInterval(const uint32_t newSubtractInterval)
 {
 	subtractInterval = newSubtractInterval;
 }
 
 //-----------------------------------------------------------------------
 
-void ServerClock::setGameTimeSeconds(const unsigned long newGameTime)
+void ServerClock::setGameTimeSeconds(const uint32_t newGameTime)
 {
 	subtractInterval = int(time(0) - newGameTime);
 	LOG("ServerClock", ("Game time set to %lu (subtract interval %lu)", newGameTime, subtractInterval));
@@ -79,11 +79,11 @@ ServerClock &ServerClock::getInstance()
  * Given a time in seconds, make a string that expresses how long it is.
  * For debug output only.  In English, not localized.  Not thread-safe.
  */
-std::string ServerClock::getDebugPrintableTimeframe(unsigned long const timeInSeconds)
+std::string ServerClock::getDebugPrintableTimeframe(uint32_t const timeInSeconds)
 {
-	unsigned long const dayInSeconds = 60 * 60 * 24;
-	unsigned long const hourInSeconds = 60 * 60;
- 	unsigned long const minuteInSeconds = 60;
+	uint32_t const dayInSeconds = 60 * 60 * 24;
+	uint32_t const hourInSeconds = 60 * 60;
+ 	uint32_t const minuteInSeconds = 60;
 
 	static char buffer[256];
 	
