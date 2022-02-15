@@ -5,6 +5,7 @@
 #include "sharedFoundation/FirstSharedFoundation.h"
 #include "sharedMemoryManager/FirstSharedMemoryManager.h"
 
+#include "LocalizationManager.h"
 #include "StringId.h"
 
 #endif

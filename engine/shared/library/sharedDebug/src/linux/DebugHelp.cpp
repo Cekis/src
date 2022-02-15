@@ -160,14 +160,6 @@ inline unsigned int dwarfGet(char const *src, u_int16_t &dest)
 
 // ----------------------------------------------------------------------
 
-inline unsigned int dwarfGet(char const *src, u_int32_t &dest)
-{
-	memcpy(&dest, src, sizeof(u_int32_t));
-	return sizeof(u_int32_t);
-}
-
-// ----------------------------------------------------------------------
-
 inline unsigned int dwarfGet(char const *src, uintptr_t &dest)
 {
 	memcpy(&dest, src, sizeof(uintptr_t));

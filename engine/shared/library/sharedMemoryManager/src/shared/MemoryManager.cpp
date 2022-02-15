@@ -90,10 +90,12 @@
 
 #endif
 
-#ifdef PLATFORM_LINUX
-	#undef DO_TRACK
-	#define DO_TRACK 5
-#endif
+// Uncomment these lines if we wish to use SOE's MemoryManager for linux environments.
+// Note: SOE's MM may be deprecated and not useful.  Do reconsider if you wish to enable.
+//#ifdef PLATFORM_LINUX
+//	#undef DO_TRACK
+//	#define DO_TRACK 5
+//#endif
 
 // ======================================================================
 
@@ -1191,7 +1193,7 @@ FreeBlock *MemoryManagerNamespace::searchFreeList(int blockSize)
  * @param array  True if the array form of operator new was used, false if the scalar form was used
  */
 
-void * MemoryManager::allocate(size_t size, uintptr_t owner, bool array, bool leakTest)
+void * MemoryManager::allocate(size_t size, uint32_t owner, bool array, bool leakTest)
 {
 	if (!ms_installed)
 		new(ms_memoryManagerBuffer) MemoryManager;

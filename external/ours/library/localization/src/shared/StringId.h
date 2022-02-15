@@ -11,6 +11,7 @@
 
 #include <string>
 #include "Unicode.h"
+#include "LocalizationManager.h"
 
 // ======================================================================
 
@@ -36,6 +37,7 @@ public:
 	//-- LocalizationUnicodeString is simply a typedef that is equivalent to Unicode::String
 	//-- it is defined here to prevent #including Unicode.h
 	typedef std::basic_string<unsigned short> LocUnicodeString;
+	typedef LocalizationManager::StringValueCode LocStringValueCode;
 
 	                        StringId       ();
 	                        StringId       (const std::string & table, const std::string & text);
@@ -62,10 +64,11 @@ public:
 
 	void                    setTextIndex   (unsigned long textIndex) const;
 
-	bool                    localize       (LocUnicodeString & result, bool forceEnglish = false) const;
-	LocUnicodeString        localize       (bool forceEnglish = false) const;
-	bool                    localize       (LocUnicodeString & result, const Unicode::NarrowString & locale, bool forceEnglish = false) const;
-	LocUnicodeString        localize       (const Unicode::NarrowString & locale, bool forceEnglish = false) const;
+	bool                    localize            (LocUnicodeString & result, bool forceEnglish = false) const;
+	LocUnicodeString        localize            (bool forceEnglish = false) const;
+	bool                    localize            (LocUnicodeString & result, const Unicode::NarrowString & locale, bool forceEnglish = false) const;
+	LocUnicodeString        localize            (const Unicode::NarrowString & locale, bool forceEnglish = false) const;
+	LocStringValueCode      localizationResult  (LocUnicodeString & result, bool forceEnglish = false) const;
 
 	static LocUnicodeString decodeString   (const LocUnicodeString & str);
 	static StringId         decodeStringId (const LocUnicodeString & str);

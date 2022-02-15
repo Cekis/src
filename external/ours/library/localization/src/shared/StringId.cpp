@@ -14,6 +14,7 @@
 #include <cassert>
 #include <cctype>
 #include <cstdlib>
+#include <iostream>
 
 //----------------------------------------------------------------------
 
@@ -182,7 +183,24 @@ void StringId::clear ()
 
 bool StringId::localize (Unicode::String & result, bool forceEnglish) const
 {
-	return LocalizationManager::getManager ().getLocalizedStringValue (*this, result, forceEnglish) == LocalizationManager::SVC_ok;
+    LocalizationManager::StringValueCode locResult = LocalizationManager::getManager ().getLocalizedStringValue (*this, result, forceEnglish);
+    switch(locResult) {
+        case LocalizationManager::SVC_bad_name:
+            std::cout << "WARNING: Could not localize string " << m_text << " in table " << m_table << " because the String could not be found." << std::endl;
+            break;
+        case LocalizationManager::SVC_bad_table:
+            std::cout << "WARNING: Could not localize string " << m_text << " in table " << m_table << " because the Table could not be found." << std::endl;
+            break;
+        default:
+            return true;
+    }
+    return false;
+}
+//----------------------------------------------------------------------
+
+LocalizationManager::StringValueCode StringId::localizationResult (Unicode::String & result, bool forceEnglish) const
+{
+    return LocalizationManager::getManager ().getLocalizedStringValue (*this, result, forceEnglish);
 }
 
 //----------------------------------------------------------------------

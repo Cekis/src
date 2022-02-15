@@ -512,7 +512,7 @@ const JNINativeMethod NATIVES[] = {
 	JF("getCtsDestinationClusters", "()[Ljava/lang/String;", getCtsDestinationClusters),
 	JF("getCurrentSceneName", "()Ljava/lang/String;", getCurrentSceneName),
 	JF("getClusterName", "()Ljava/lang/String;", getClusterName),
-	JF("_sendScriptVarsToProxies", "(J[B)V", sendScriptVarsToProxies),
+	JF("_sendScriptVarsToProxies", "(J[B)Z", sendScriptVarsToProxies),
 	JF("_canEquipWearable", "(JJ)Z", canEquipWearable),
 	JF("_openCustomizationWindow", "(JJLjava/lang/String;IILjava/lang/String;IILjava/lang/String;IILjava/lang/String;II)V", openCustomizationWindow),
 	JF("_getHologramType", "(J)I", getHologramType),

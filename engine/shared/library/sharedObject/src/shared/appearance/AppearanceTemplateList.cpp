@@ -396,6 +396,12 @@ Appearance *AppearanceTemplateList::createAppearance(const char *const fileName)
 	//-- get the appearance template
 	const AppearanceTemplate *const appearanceTemplate = fetch(fileName);
 
+	//probably should modify the macro sometime to just be quiet if this isn't defined
+	if (appearanceTemplate == nullptr){
+	    DEBUG_WARNING(true, ("FIX ME: Appearance template for %s could not be fetched - is it missing?  If not, check its internal redirectors.", fileName));
+	    return nullptr;
+	}
+
 	//-- creating the appearance will increment the reference count
 	Appearance *const appearance = appearanceTemplate->createAppearance();
 

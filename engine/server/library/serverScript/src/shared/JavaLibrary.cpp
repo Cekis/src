@@ -1190,12 +1190,37 @@ void JavaLibrary::initializeJavaThread()
 		tempOption.optionString = "-Xmx512m";
 		options.push_back(tempOption);
 		tempOption.optionString = "-Xss768k";
-			options.push_back(tempOption);
-		if (ms_javaVmType == JV_ibm)
-		{
-			tempOption.optionString = "-Xoss768k";
-			options.push_back(tempOption);
+		options.push_back(tempOption);
+        tempOption.optionString = "-Xss768k";
+        options.push_back(tempOption);
+
+        // java 1.8 and higher uses metaspace...which is apparently unlimited by default
+        // we have to consider it with our 512m max above so 96 on 32-bit is as high as we go
+        tempOption.optionString = "-XX:MaxMetaspaceSize=96m";
+        options.push_back(tempOption);
+
+        // rice options!!!!1! yay - actually after much trial and error these are a good mix for speed and efficiency
+        // some may be default, not needed, or ignored by whatever version we're using -darth
+		tempOption.optionString = "-XX:-UsePerfData";
+		options.push_back(tempOption);
+		tempOption.optionString = "-XX:-AllowUserSignalHandlers";
+		options.push_back(tempOption);
+		tempOption.optionString = "-XX:UseSSE=3";
+		options.push_back(tempOption);
+		tempOption.optionString = "-XX:AutoBoxCacheMax=2000";
+		options.push_back(tempOption);
+		tempOption.optionString = "-XX:+OptimizeStringConcat";
+		options.push_back(tempOption);
+		tempOption.optionString = "-XX:+OptimizeFill";
+		options.push_back(tempOption);
+		tempOption.optionString = "-XX:+EliminateAutoBox";
+		options.push_back(tempOption);
+        if (sizeof(void *) == 8) { // this option may only be recognized in a 64 bit env.
+            tempOption.optionString = "-XX:+UseCompressedOops";
+            options.push_back(tempOption);
 		}
+		tempOption.optionString = "-XX:+EliminateLocks";
+		options.push_back(tempOption);
 
 		if (ms_javaVmType == JV_ibm)
 		{
@@ -1217,8 +1242,6 @@ void JavaLibrary::initializeJavaThread()
 				tempOption.optionString = "-Xint";
 				options.push_back(tempOption);
 			}
-			tempOption.optionString = "-Xincgc";
-			options.push_back(tempOption);
 		}
 
 		if (ConfigServerGame::getUseVerboseJava())
@@ -1303,11 +1326,7 @@ void JavaLibrary::initializeJavaThread()
 	tempOption.optionString = const_cast<char *>(classPath.c_str());
 	options.push_back(tempOption);
 
-#ifdef JNI_VERSION_1_4
-	vm_args.version = JNI_VERSION_1_4;
-#else
-	vm_args.version = JNI_VERSION_1_2;
-#endif
+    vm_args.version = JNI_VERSION_1_8;
 	vm_args.options = &options[0];
 	vm_args.nOptions = options.size();
 	vm_args.ignoreUnrecognized = JNI_FALSE;
@@ -2135,6 +2154,7 @@ bool JavaLibrary::registerNatives(const JNINativeMethod natives[], int count)
 		{
 			ms_env->ExceptionClear();
 			DEBUG_REPORT_LOG(true, ("RegisterNatives failed: %s: %s\n", natives[i].name, natives[i].signature));
+			WARNING(true, ("RegisterNatives failed: could not register Java method: %s: with signature %s (does it exist in the codebase?)\n", natives[i].name, natives[i].signature));
 			result = lresult;
 		}
 	}
@@ -2147,7 +2167,7 @@ bool JavaLibrary::registerNatives(const JNINativeMethod natives[], int count)
 	}
 	if (result != 0)
 	{
-		FATAL(true, ("JavaLibrary RegisterNatives fail!\n"));
+		FATAL(true, ("JavaLibrary RegisterNatives failed!\n"));
 		return false;
 	}
 	return true;

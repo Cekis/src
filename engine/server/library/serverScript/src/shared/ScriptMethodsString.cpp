@@ -94,15 +94,16 @@ jstring JNICALL ScriptMethodsStringNamespace::getString(JNIEnv *env, jobject sel
 
 	const StringId stringId(table, asciiId);
 	Unicode::String localized;
+	LocalizationManager::StringValueCode localizationResult = stringId.localizationResult(localized);
 
-	if (stringId.localize(localized))
+	if (localizationResult == LocalizationManager::SVC_ok)
 	{
 		JavaString result(localized);
 		return result.getReturnValue();
 	}
 	else
 	{
-		WARNING(true, ("JavaLibrary::log failed to localize the stringId(%s, %s)", table.c_str(), asciiId.c_str()));
+		WARNING(true, ("JavaLibrary::log Could not localize %s from table %s because %s.", asciiId.c_str(), table.c_str(), (localizationResult == LocalizationManager::SVC_bad_name ? " the entry could not be found in the table." : " we could not locate the table. ")));
 	}
 
 	return 0;
