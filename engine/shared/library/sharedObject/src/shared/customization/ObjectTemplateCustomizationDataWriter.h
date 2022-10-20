@@ -9,6 +9,8 @@
 #ifndef INCLUDED_ObjectTemplateCustomizationDataWriter_H
 #define INCLUDED_ObjectTemplateCustomizationDataWriter_H
 
+#include <list>
+
 // ======================================================================
 
 // -TRF- replace this with whatever flag is needed to include for internal-only
@@ -36,7 +38,7 @@ public:
 
 private:
 
-	typedef stdlist<std::string>::fwd  StringList;
+	typedef std::list<std::string>  StringList;
 
 private:
 

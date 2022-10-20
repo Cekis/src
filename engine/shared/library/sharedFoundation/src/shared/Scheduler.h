@@ -9,6 +9,8 @@
 #ifndef	_INCLUDED_Scheduler_H
 #define	_INCLUDED_Scheduler_H
 
+#include <queue>
+
 // ======================================================================
 
 #include "sharedFoundation/StaticCallbackEntry.h"
@@ -91,8 +93,8 @@ private:
 
 private:
 
-	stdvector<StaticCallbackEntry *>::fwd * deferredCallbackEntryAdditions;
-	stdpriority_queue<StaticCallbackEntry *, std::vector<StaticCallbackEntry *, std::allocator<StaticCallbackEntry *> >, StaticCallbackEntry::Compare>::fwd * callbackQueue;
+	std::vector<StaticCallbackEntry *> * deferredCallbackEntryAdditions;
+	std::priority_queue<StaticCallbackEntry *, std::vector<StaticCallbackEntry *, std::allocator<StaticCallbackEntry *> >, StaticCallbackEntry::Compare> * callbackQueue;
 
 private:
 

@@ -11,6 +11,7 @@
 
 // ======================================================================
 
+#include <vector>
 #include "Unicode.h"
 #include "sharedFoundation/NetworkId.h"
 
@@ -36,7 +37,7 @@ struct LocationRecord
 
 // ======================================================================
 
-typedef stdvector<LocationRecord>::fwd LocationList;
+typedef std::vector<LocationRecord> LocationList;
 
 // ======================================================================
 

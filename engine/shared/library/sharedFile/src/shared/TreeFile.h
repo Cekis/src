@@ -10,6 +10,8 @@
 #ifndef INCLUDED_TreeFile_H
 #define INCLUDED_TreeFile_H
 
+#include <vector>
+
 // ======================================================================
 
 class Compressor;
@@ -104,7 +106,7 @@ public:
 
 private:
 
-	typedef stdvector<SearchNode *>::fwd  SearchNodes;
+	typedef std::vector<SearchNode *>  SearchNodes;
 
 private:
 

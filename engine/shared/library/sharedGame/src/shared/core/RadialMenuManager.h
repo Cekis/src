@@ -8,6 +8,8 @@
 #ifndef INCLUDED_RadialMenuManager_H
 #define INCLUDED_RadialMenuManager_H
 
+#include <vector>
+
 //======================================================================
 
 struct ObjectMenuRequestData;
@@ -18,7 +20,7 @@ class RadialMenuManager
 {
 public:
 
-	typedef stdvector<ObjectMenuRequestData>::fwd DataVector;
+	typedef std::vector<ObjectMenuRequestData> DataVector;
 
 	static int         getMenuTypeByName     (const std::string & name);
 	static bool        getRangeForMenuType   (int menuType, float &range);

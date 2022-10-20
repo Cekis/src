@@ -11,6 +11,7 @@
 
 // ======================================================================
 
+#include <vector>
 #include "sharedFoundation/Tag.h"
 
 class ConstCharCrcString;
@@ -60,7 +61,7 @@ public:
 
 	static void garbageCollect ();
 
-	static void getAllTemplateNamesFromCrcStringTable(stdvector<const char *>::fwd & objectTemplateNames);
+	static void getAllTemplateNamesFromCrcStringTable(std::vector<const char *> & objectTemplateNames);
 
 private:
 

@@ -11,6 +11,7 @@
 
 // ======================================================================
 
+#include <set>
 #include "sharedObject/CachedNetworkId.h"
 #include "sharedObject/Property.h"
 
@@ -28,12 +29,12 @@ public:
 	~PatrolPathNodeProperty();
 
 	void                                 addRoot(const ServerObject & root);
-	const stdset<CachedNetworkId>::fwd & getRoots() const;
+	const std::set<CachedNetworkId> & getRoots() const;
 	bool                                 hasRoot(const ServerObject & root) const;
 
 private:
 	
-	stdset<CachedNetworkId>::fwd * m_roots;
+	std::set<CachedNetworkId> * m_roots;
 
 private:
 	PatrolPathNodeProperty();
@@ -44,7 +45,7 @@ private:
 
 // ======================================================================
 
-inline const stdset<CachedNetworkId>::fwd & PatrolPathNodeProperty::getRoots() const
+inline const std::set<CachedNetworkId> & PatrolPathNodeProperty::getRoots() const
 {
 	return *m_roots;
 }

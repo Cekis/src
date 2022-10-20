@@ -8,6 +8,9 @@
 #ifndef INCLUDED_ShipChassis_H
 #define INCLUDED_ShipChassis_H
 
+#include <vector>
+#include <set>
+
 //======================================================================
 
 #include "sharedGame/ShipChassisSlotType.h"
@@ -21,10 +24,10 @@ class ShipChassis
 {
 public:
 
-	typedef stdvector<ShipChassisSlot>::fwd SlotVector;
-	typedef stdset<ShipChassisSlot>::fwd SlotSet;
-	typedef stdvector<int>::fwd IntVector;
-	typedef stdvector<std::string>::fwd StringVector;
+	typedef std::vector<ShipChassisSlot> SlotVector;
+	typedef std::set<ShipChassisSlot> SlotSet;
+	typedef std::vector<int> IntVector;
+	typedef std::vector<std::string> StringVector;
 
 	static void install ();
 	static void remove  ();
@@ -34,7 +37,7 @@ public:
 
 	static void setUseWritableChassis(bool onlyUseThisForTools);
 
-	typedef stdvector<PersistentCrcString *>::fwd PersistentCrcStringVector;
+	typedef std::vector<PersistentCrcString *> PersistentCrcStringVector;
 
 	static PersistentCrcStringVector const &   getShipChassisCrcVector         ();
 

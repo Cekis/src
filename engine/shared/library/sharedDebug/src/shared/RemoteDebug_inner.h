@@ -8,6 +8,7 @@
 #ifndef REMOTE_DEBUG_INNER_H
 #define REMOTE_DEBUG_INNER_H
 
+#include <list>
 #include "sharedDebug/RemoteDebug.h"
 
 // ======================================================================
@@ -24,7 +25,7 @@ class RemoteDebug::Channel
 		void addChild(Channel *child);
 		const std::string& name();
 	private:
-		typedef stdlist<Channel *>::fwd NodeList;
+		typedef std::list<Channel *> NodeList;
 		///its children
 		NodeList* m_children;
 		///the fully qualified name of the channel

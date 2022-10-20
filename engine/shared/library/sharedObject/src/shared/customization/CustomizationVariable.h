@@ -9,6 +9,8 @@
 #ifndef INCLUDED_CustomizationVariable_H
 #define INCLUDED_CustomizationVariable_H
 
+#include <vector>
+
 // ======================================================================
 
 class CustomizationData;
@@ -23,7 +25,7 @@ friend class CustomizationData;
 
 public:
 
-	typedef stdvector<byte>::fwd  ByteVector;
+	typedef std::vector<byte>  ByteVector;
 	
 public:
 

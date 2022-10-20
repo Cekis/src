@@ -103,7 +103,7 @@ protected:
 private:
 	// these MUST be reflected in clientGame/TangibleObject.h
 	// these MUST be reflected in base_class.java
-	stdvector<TriggerVolumeParam *>::fwd m_triggerVolumes;		// trigger volume(s) attached to the object
+	std::vector<TriggerVolumeParam *> m_triggerVolumes;		// trigger volume(s) attached to the object
 	bool m_triggerVolumesLoaded;
 	bool m_triggerVolumesAppend;
 	CompilerIntegerParam m_combatSkeleton;		// this should be fixed (not random) for any template type

@@ -9,6 +9,8 @@
 #ifndef INCLUDED_CompressedQuaternion_H
 #define INCLUDED_CompressedQuaternion_H
 
+#include <vector>
+
 // ======================================================================
 
 class Quaternion;
@@ -19,8 +21,8 @@ class CompressedQuaternion
 {
 public:
 
-	typedef stdvector<Quaternion>::fwd            QuaternionVector;
-	typedef stdvector<CompressedQuaternion>::fwd  CompressedQuaternionVector;
+	typedef std::vector<Quaternion>            QuaternionVector;
+	typedef std::vector<CompressedQuaternion>  CompressedQuaternionVector;
 
 public:
 

@@ -42,6 +42,7 @@ namespace DPVS
 	class Object;
 };
 
+#include <vector>
 #include "sharedFoundation/Tag.h"
 #include "sharedFoundation/Watcher.h"
 #include "sharedMath/Transform.h"
@@ -90,7 +91,7 @@ public:
 		DF_world		// Place the object into the world cell.
 	};
 
-	typedef stdvector<DPVS::Object *>::fwd  DpvsObjects;
+	typedef std::vector<DPVS::Object *>     DpvsObjects;
 	typedef uint64                          ScheduleTime;
 
 	class NotificationList;
@@ -327,7 +328,7 @@ public:
 	bool getUseAlterScheduler() const;
 	void setUseAlterScheduler(bool const useAlterScheduler);
 
-	virtual void getObjectInfo(stdmap<std::string, stdmap<std::string, Unicode::String>::fwd >::fwd & propertyMap) const;
+	virtual void getObjectInfo(std::map<std::string, std::map<std::string, Unicode::String> > & propertyMap) const;
 
 	bool getShouldBakeIntoMesh() const;
 	void setShouldBakeIntoMesh(bool bake);
@@ -416,7 +417,7 @@ private:
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 public:
-	typedef stdvector<Property *>::fwd PropertyList;
+	typedef std::vector<Property *> PropertyList;
 
 protected:
 	PropertyList * const m_propertyList;
@@ -448,7 +449,7 @@ private:
 	Dynamics                 *m_dynamics;
 
 	Object                   *m_attachedToObject;
-	typedef stdvector<Object *>::fwd AttachedObjects;
+	typedef std::vector<Object *> AttachedObjects;
 	AttachedObjects          *m_attachedObjects;
 	DpvsObjects              *m_dpvsObjects;
 

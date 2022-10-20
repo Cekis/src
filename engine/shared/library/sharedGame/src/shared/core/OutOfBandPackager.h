@@ -5,6 +5,8 @@
 #ifndef	_INCLUDED_OutOfBandPackager_H
 #define	_INCLUDED_OutOfBandPackager_H
 
+#include <vector>
+
 //-----------------------------------------------------------------------
 
 namespace Archive
@@ -25,8 +27,8 @@ class OutOfBandPackager
 {
 public:
 
-	typedef stdvector<OutOfBandBase *>::fwd OutOfBandBaseVector;
-	typedef stdvector<std::pair<std::string, Unicode::String> >::fwd AttributeVector;
+	typedef std::vector<OutOfBandBase *> OutOfBandBaseVector;
+	typedef std::vector<std::pair<std::string, Unicode::String> > AttributeVector;
 
 	enum OobTypes
 	{

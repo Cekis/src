@@ -9,6 +9,7 @@
 #ifndef	INCLUDED_PathGraph_H
 #define	INCLUDED_PathGraph_H
 
+#include <vector>
 #include "sharedCollision/BaseClass.h"            // this really needs to be in a different library
 #include "sharedPathfinding/PathfindingEnums.h"
 
@@ -19,8 +20,8 @@ class Iff;
 class DebugShapeRenderer;
 class Vector;
 
-typedef stdvector<int>::fwd IndexList;
-typedef stdvector<PathNode *>::fwd PathNodeList;
+typedef std::vector<int> IndexList;
+typedef std::vector<PathNode *> PathNodeList;
 
 // ======================================================================
 

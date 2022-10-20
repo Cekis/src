@@ -8,6 +8,8 @@
 #ifndef INCLUDED_StartingLocationManager_H
 #define INCLUDED_StartingLocationManager_H
 
+#include <vector>
+
 //======================================================================
 
 class StartingLocationData;
@@ -18,7 +20,7 @@ class StartingLocationManager
 {
 public:
 
-	typedef stdvector<StartingLocationData>::fwd StartingLocationVector;
+	typedef std::vector<StartingLocationData> StartingLocationVector;
 
 	static const StartingLocationData *       findLocationByName   (const std::string & name);
 	static void                               getLocationsByPlanet (const std::string & planet, StartingLocationVector & slv);

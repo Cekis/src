@@ -6,6 +6,8 @@
 //
 //========================================================================
 
+#include <iostream>
+
 #include "serverScript/FirstServerScript.h"
 #include "serverScript/JavaLibrary.h"
 
@@ -1217,7 +1219,7 @@ void JavaLibrary::initializeJavaThread()
 				tempOption.optionString = "-Xint";
 				options.push_back(tempOption);
 			}
-			tempOption.optionString = "-Xincgc";
+			// tempOption.optionString = "-Xincgc";
 			options.push_back(tempOption);
 		}
 
@@ -1303,10 +1305,10 @@ void JavaLibrary::initializeJavaThread()
 	tempOption.optionString = const_cast<char *>(classPath.c_str());
 	options.push_back(tempOption);
 
-#ifdef JNI_VERSION_1_4
-	vm_args.version = JNI_VERSION_1_4;
+#ifdef JNI_VERSION_1_9
+	vm_args.version = JNI_VERSION_1_9;
 #else
-	vm_args.version = JNI_VERSION_1_2;
+	vm_args.version = JNI_VERSION_1_8;
 #endif
 	vm_args.options = &options[0];
 	vm_args.nOptions = options.size();
@@ -2118,6 +2120,7 @@ bool JavaLibrary::registerNatives(const JNINativeMethod natives[], int count)
 	if (ms_env->ExceptionCheck())
 	{
 		ms_env->ExceptionDescribe();
+		DEBUG_FATAL(true, ("Unable to find script/base_class!  Is it there?"));
 		return false;
 	}
 
@@ -5680,7 +5683,7 @@ const bool convert(const std::set<CellPermissions::PermissionObject> & source, L
 	return true;
 }
 
-const bool convert(const jobjectArray & source, stdvector<std::string>::fwd & target)
+const bool convert(const jobjectArray & source, std::vector<std::string> & target)
 {
 	JNIEnv * env = JavaLibrary::getEnv();
 	if (!env || !source)

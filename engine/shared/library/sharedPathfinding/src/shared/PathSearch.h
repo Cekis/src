@@ -9,6 +9,8 @@
 #ifndef	INCLUDED_PathSearch_H
 #define	INCLUDED_PathSearch_H
 
+#include <vector>
+
 class PathGraph;
 class PathNode;
 class PathSearch;
@@ -21,8 +23,8 @@ struct PathNodeHasher
 	size_t operator() ( PathNode const * node ) const;
 };
 
-typedef stdvector<int>::fwd IndexList;
-typedef stdvector<PathNode const *>::fwd NodeList;
+typedef std::vector<int> IndexList;
+typedef std::vector<PathNode const *> NodeList;
 
 // ======================================================================
 

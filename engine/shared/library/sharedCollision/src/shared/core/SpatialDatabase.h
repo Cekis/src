@@ -8,6 +8,7 @@
 #ifndef INCLUDED_SpatialDatabase_H
 #define INCLUDED_SpatialDatabase_H
 
+#include <vector>
 #include "sharedCollision/CollisionEnums.h"
 
 class AxialBox;
@@ -29,10 +30,10 @@ class Sphere;
 class Vector;
 class VectorArgb;
 
-typedef stdvector<Floor*>::fwd FloorVec;
-typedef stdvector<Object*>::fwd ObjectVec;
-typedef stdvector<Object const *>::fwd ObjectConstVec;
-typedef stdvector<CollisionProperty*>::fwd  ColliderList;
+typedef std::vector<Floor*> FloorVec;
+typedef std::vector<Object*> ObjectVec;
+typedef std::vector<Object const *> ObjectConstVec;
+typedef std::vector<CollisionProperty*>  ColliderList;
 
 
 template<typename T, typename U>

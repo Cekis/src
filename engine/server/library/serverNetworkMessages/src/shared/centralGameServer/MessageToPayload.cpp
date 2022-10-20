@@ -5,6 +5,7 @@
 //
 // ======================================================================
 
+#include <vector>
 #include "serverNetworkMessages/FirstServerNetworkMessages.h"
 #include "serverNetworkMessages/MessageToPayload.h"
 

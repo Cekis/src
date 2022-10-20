@@ -9,6 +9,7 @@
 #include <cassert>
 #include <list>
 #include <vector>
+#include <utility>
 
 namespace Archive {
 //---------------------------------------------------------------------

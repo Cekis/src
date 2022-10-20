@@ -9,6 +9,8 @@
 #ifndef INCLUDED_SlotIdManager_H
 #define INCLUDED_SlotIdManager_H
 
+#include <vector>
+
 // ======================================================================
 
 class CrcString;
@@ -26,7 +28,7 @@ class SlotIdManager
 {
 public:
 
-	typedef stdvector<std::string>::fwd AnythingSlotVector;
+	typedef std::vector<std::string> AnythingSlotVector;
 
 public:
 
@@ -34,7 +36,7 @@ public:
 	static bool                  isInstalled();
 
 	static SlotId                findSlotId(const CrcString &slotName);
-	static void                  findSlotIdsForCombatBone(uint32 bone, stdvector<SlotId>::fwd & slots);
+	static void                  findSlotIdsForCombatBone(uint32 bone, std::vector<SlotId> & slots);
 
 	static CrcString const      &getSlotName(SlotId const &slotId);
 	static bool                  isSlotPlayerModifiable(const SlotId &slotId);

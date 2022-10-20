@@ -10,6 +10,8 @@
 
 // ======================================================================
 
+#include <vector>
+#include <utility>
 #include "sharedDatabaseInterface/DbTaskRequest.h"
 #include "sharedDatabaseInterface/DbQuery.h"
 #include "sharedDatabaseInterface/Bindable.h"
@@ -19,7 +21,7 @@
 class TaskSaveObjvarNames : public DB::TaskRequest
 {
   public:
-	typedef stdvector<std::pair<int, std::string> >::fwd NameList;
+	typedef std::vector<std::pair<int, std::string> > NameList;
 	
   public:
 	TaskSaveObjvarNames     (const NameList &names);

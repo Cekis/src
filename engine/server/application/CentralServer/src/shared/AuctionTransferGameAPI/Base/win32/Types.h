@@ -19,7 +19,7 @@ namespace NAMESPACE
 namespace Base 
 {
 
-#define INT32_MAX  0x7FFFFFFF
+//#define INT32_MAX  0x7FFFFFFF
 #define INT32_MIN  0x80000000
 #define UINT32_MAX 0xFFFFFFFF
 

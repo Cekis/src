@@ -9,6 +9,7 @@
 #ifndef	INCLUDED_AiShipBehaviorDock_H
 #define	INCLUDED_AiShipBehaviorDock_H
 
+#include <list>
 #include "sharedFoundation/Timer.h"
 #include "sharedMath/Transform.h"
 #include "sharedMath/Vector.h"
@@ -53,7 +54,7 @@ private:
 	static char const * getDockingStateString(DockingState const dockingState);
 #endif // _DEBUG
 
-	typedef stdlist<Transform>::fwd HardPointList;
+	typedef std::list<Transform> HardPointList;
 
 	ShipController & m_shipController;
 	CachedNetworkId m_dockTarget;

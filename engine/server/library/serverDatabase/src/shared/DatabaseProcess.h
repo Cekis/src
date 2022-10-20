@@ -13,6 +13,7 @@
 #include <unordered_map>
 #include <set>
 #include <string>
+#include <vector>
 #include "sharedFoundation/NetworkIdArchive.h"
 #include "sharedMessageDispatch/Receiver.h"
 
@@ -50,7 +51,7 @@ class DatabaseProcess : public MessageDispatch::Receiver
 
 // getters:
 	GameServerConnection * getConnectionByProcess(const uint32 processId);
-	void getGameServerProcessIds(stdvector<uint32>::fwd &processIds) const;
+	void getGameServerProcessIds(std::vector<uint32> &processIds) const;
 	uint32 getProcessId(void);
 	DB::Server *getDBServer(void);
 	const std::string &getClusterName() const;

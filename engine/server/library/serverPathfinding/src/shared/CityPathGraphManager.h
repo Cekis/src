@@ -9,6 +9,9 @@
 #ifndef	INCLUDED_CityPathGraphManager_H
 #define	INCLUDED_CityPathGraphManager_H
 
+#include <map>
+#include <vector>
+
 class ServerObject;
 class PathGraph;
 class Vector;
@@ -16,9 +19,9 @@ class CityPathGraph;
 class CityPathNode;
 class BuildingObject;
 
-typedef stdmap< int, CityPathGraph * >::fwd CityGraphMap;
+typedef std::map< int, CityPathGraph * > CityGraphMap;
 
-typedef stdvector< Vector >::fwd PositionList;
+typedef std::vector< Vector > PositionList;
 
 // ======================================================================
 
@@ -55,7 +58,7 @@ public:
 	static bool destroyPathNodes         ( ServerObject * building );
 
 	static bool reloadPathNodes          ( void );
-	static bool reloadPathNodes          ( stdvector< ServerObject * >::fwd const & objects );
+	static bool reloadPathNodes          ( std::vector< ServerObject * > const & objects );
 
 	static bool markCityEntrance         ( ServerObject * object );
 	static bool unmarkCityEntrance       ( ServerObject * object );

@@ -66,7 +66,7 @@ public:
 	void                     sendToCluster       (uint32 clusterId, const GameNetworkMessage &message);
 	void                     sendToAllClusters   (GameNetworkMessage const & message, Connection const * excludeCentralConnection = NULL, uint32 excludeClusterId = 0, char const * excludeClusterName = NULL);
 	bool                     areAllClustersUp    () const;
-	void                     getClusterIds       (stdvector<uint32>::fwd result);
+	void                     getClusterIds       (std::vector<uint32> result);
 	void                     performAccountTransfer (const AvatarList &avatars, TransferAccountData * transferAccountData);
 	void                     setDone             (const bool isDone);
 	

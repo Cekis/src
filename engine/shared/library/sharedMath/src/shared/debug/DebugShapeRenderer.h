@@ -8,6 +8,7 @@
 #ifndef INCLUDED_DebugShapeRenderer_H
 #define INCLUDED_DebugShapeRenderer_H
 
+#include <vector>
 #include "sharedMath/VectorArgb.h"
 
 class Sphere;
@@ -21,7 +22,7 @@ class Vector;
 class Object;
 class Transform;
 
-typedef stdvector<Vector>::fwd VectorVec;
+typedef std::vector<Vector> VectorVec;
 
 class DebugShapeRenderer
 {

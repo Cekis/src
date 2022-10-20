@@ -9,6 +9,7 @@
 #ifndef INCLUDED_AiShipBehaviorAttackFighter_Maneuver_Path_H
 #define INCLUDED_AiShipBehaviorAttackFighter_Maneuver_Path_H
 
+#include <queue>
 #include "serverGame/AiShipBehaviorAttackFighter_Maneuver.h"
 
 class Transform;
@@ -56,7 +57,7 @@ private:
 	Path();
 	virtual ~Path();
 
-	typedef stddeque<Node>::fwd NodeList;
+	typedef std::deque<Node> NodeList;
 	NodeList * const m_nodeList;
 
 private: // Disabled.

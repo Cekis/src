@@ -19,7 +19,7 @@ const BOOL FALSE = 0;
 const BOOL TRUE = 1;
 
 
-float abs(float x);
+// float abs(float x);
 int _stricmp(const char* string1, const char* string2);
 
 //String to numeric conversions

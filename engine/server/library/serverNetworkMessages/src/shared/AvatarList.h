@@ -8,6 +8,8 @@
 #ifndef INCLUDED_AvatarList_H
 #define INCLUDED_AvatarList_H
 
+#include <vector>
+
 // ======================================================================
 
 #include "Unicode.h"
@@ -29,7 +31,7 @@ struct AvatarRecord
 
 // ======================================================================
 
-typedef stdvector<AvatarRecord>::fwd AvatarList;
+typedef std::vector<AvatarRecord> AvatarList;
 
 // ======================================================================
 

@@ -3306,7 +3306,7 @@ void PlayerObject::stopCrafting (bool normalExit)
 
 // ----------------------------------------------------------------------
 
-void PlayerObject::getAttributes(stdvector<std::pair<std::string, Unicode::String> >::fwd &data) const
+void PlayerObject::getAttributes(std::vector<std::pair<std::string, Unicode::String> > &data) const
 {
 	IntangibleObject::getAttributes(data);
 }
@@ -7863,7 +7863,7 @@ bool PlayerObject::hasCompletedCollectionBook(std::string const & bookName) cons
 
 // ----------------------------------------------------------------------
 
-int PlayerObject::getCompletedCollectionSlotCountInCollection(std::string const & collectionName, stdvector<CollectionsDataTable::CollectionInfoSlot const *>::fwd * collectionInfo /*= NULL*/) const
+int PlayerObject::getCompletedCollectionSlotCountInCollection(std::string const & collectionName, std::vector<CollectionsDataTable::CollectionInfoSlot const *> * collectionInfo /*= NULL*/) const
 {
 	if (collectionInfo)
 		collectionInfo->clear();

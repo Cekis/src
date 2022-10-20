@@ -10,6 +10,7 @@
 
 // ======================================================================
 
+#include <list>
 #include "Singleton/Singleton2.h"
 
 // ======================================================================
@@ -55,7 +56,7 @@ class NonCriticalTaskQueue : public Singleton2<NonCriticalTaskQueue>
 	~NonCriticalTaskQueue  ();
 
   private:
-	typedef stdlist<TaskRequest*>::fwd TaskListType;
+	typedef std::list<TaskRequest*> TaskListType;
 	
 	TaskListType *m_tasks;
 };

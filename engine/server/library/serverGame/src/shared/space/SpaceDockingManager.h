@@ -8,6 +8,8 @@
 #ifndef INCLUDED_SpaceDockingManager_H
 #define INCLUDED_SpaceDockingManager_H
 
+#include <list>
+
 class NetworkId;
 class Object;
 class Transform;
@@ -17,7 +19,7 @@ class SpaceDockingManager
 {
 public:
 
-	typedef stdlist<Transform>::fwd HardPointList;
+	typedef std::list<Transform> HardPointList;
 
 	static void install();
 

@@ -8,6 +8,8 @@
 #ifndef INCLUDED_ConsentManager_H
 #define INCLUDED_ConsentManager_H
 
+#include <map>
+#include <list>
 #include "Singleton/Singleton.h"
 #include "sharedMessageDispatch/Receiver.h"
 
@@ -37,7 +39,7 @@ private:
 	ConsentManager &operator =(ConsentManager const &);
 
 private:
-	stdmap<NetworkId, stdlist<std::pair<int, CallbackFunction> >::fwd >::fwd m_consentMap;
+	std::map<NetworkId, std::list<std::pair<int, CallbackFunction> > > m_consentMap;
 	int m_nextId;
 };
 

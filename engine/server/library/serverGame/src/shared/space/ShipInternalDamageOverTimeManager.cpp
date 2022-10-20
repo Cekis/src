@@ -23,7 +23,7 @@ namespace ShipInternalDamageOverTimeManagerNamespace
 {
 	typedef ShipInternalDamageOverTimeManager::IdotVector IdotVector;
 	typedef std::pair<ShipInternalDamageOverTime, float> IdotDamage;
-	typedef stdvector<IdotDamage>::fwd IdotDamageVector;
+	typedef std::vector<IdotDamage> IdotDamageVector;
 
 	IdotVector s_idotVector;
 	IdotVector s_temporaryIdotVector;
@@ -235,13 +235,13 @@ ShipInternalDamageOverTime const * const ShipInternalDamageOverTimeManager::find
 
 	//-- there is no lower bound, the idot is not in the vector
 	if (lowerBound == s_idotVector.end())
-		return false;
+		return NULL;
 
 	ShipInternalDamageOverTime & lowerBoundIdot = *lowerBound;
 
 	//-- the lower bound sorts greater than the new idot, therefore this is a new insertion
 	if (idot < lowerBoundIdot)
-		return false;
+		return NULL;
 
 	return &lowerBoundIdot;
 }

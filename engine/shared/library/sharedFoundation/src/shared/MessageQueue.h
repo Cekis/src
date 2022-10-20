@@ -10,6 +10,8 @@
 #ifndef INCLUDED_MessageQueue_H
 #define INCLUDED_MessageQueue_H
 
+#include <vector>
+
 // ======================================================================
 
 class MessageQueue
@@ -74,7 +76,7 @@ private:
 
 private:
 
-	typedef stdvector<Message>::fwd MessageList;
+	typedef std::vector<Message> MessageList;
 
 private:
 

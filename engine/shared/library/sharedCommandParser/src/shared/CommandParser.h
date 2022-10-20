@@ -11,6 +11,8 @@
 #define INCLUDED_CommandParser_H
 
 #include "Unicode.h"
+#include <vector>
+#include <set>
 
 class CommandPermissionManager;
 class NetworkId;
@@ -49,7 +51,7 @@ class CommandParser
 public:
 	
 	typedef Unicode::String          String_t;
-	typedef stdvector<String_t>::fwd StringVector_t;
+	typedef std::vector<String_t>    StringVector_t;
 
 	enum ErrorType
 	{
@@ -199,7 +201,7 @@ private:
 	const CommandParser *   m_parent;
 	CommandParser       *   m_delegate;
 
-	typedef stdmap<int, String_t>::fwd ErrorMsgMap_t;
+	typedef std::map<int, String_t> ErrorMsgMap_t;
 
 	static size_t           ms_instanceCount;
 	static String_t *       ms_ERR_NO_ERROR_MSG_MSG;
@@ -216,7 +218,7 @@ private:
 		bool        operator () (const CommandParser * a, const CommandParser * b) const;
 	};
 
-	typedef stdset<CommandParser*, Comparator>::fwd CommandParserSet_t;
+	typedef std::set<CommandParser*, Comparator> CommandParserSet_t;
 
 	CommandParserSet_t *      m_subCommands;
 		

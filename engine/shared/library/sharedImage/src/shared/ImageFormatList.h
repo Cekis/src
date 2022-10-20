@@ -8,6 +8,9 @@
 #ifndef INCLUDED_ImageFormatList_H
 #define INCLUDED_ImageFormatList_H
 
+#include <vector>
+#include <map>
+
 // ======================================================================
 
 class Image;
@@ -36,8 +39,8 @@ private:
 
 private:
 
-	typedef stdvector<const ImageFormat*>::fwd            ImageFormatVector;
-	typedef stdmap<std::string, const ImageFormat*>::fwd  ExtensionMap;
+	typedef std::vector<const ImageFormat*>            ImageFormatVector;
+	typedef std::map<std::string, const ImageFormat*>  ExtensionMap;
 
 private:
 

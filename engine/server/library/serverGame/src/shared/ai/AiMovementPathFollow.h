@@ -9,9 +9,10 @@
 #ifndef	INCLUDED_AiMovementPathFollow_H
 #define	INCLUDED_AiMovementPathFollow_H
 
+#include <list>
 #include "serverGame/AiMovementWaypoint.h"
 
-typedef stdlist<AiLocation>::fwd AiPath;
+typedef std::list<AiLocation> AiPath;
 class ServerPathBuilder;
 
 // ======================================================================

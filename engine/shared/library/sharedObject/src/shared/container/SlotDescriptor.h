@@ -9,6 +9,8 @@
 #ifndef INCLUDED_SlotDescriptor_H
 #define INCLUDED_SlotDescriptor_H
 
+#include <vector>
+
 // ======================================================================
 
 class CrcLowerString;
@@ -37,7 +39,7 @@ friend class SlotDescriptorList;
 
 public:
 
-	typedef stdvector<SlotId>::fwd  SlotIdVector;
+	typedef std::vector<SlotId>  SlotIdVector;
 
 public:
 

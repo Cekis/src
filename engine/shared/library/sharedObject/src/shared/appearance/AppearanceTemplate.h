@@ -10,6 +10,8 @@
 #ifndef INCLUDED_AppearanceTemplate_H
 #define INCLUDED_AppearanceTemplate_H
 
+#include <vector>
+
 // ======================================================================
 
 class Appearance;
@@ -83,7 +85,7 @@ protected:
 
 private:
 
-	typedef stdvector<Hardpoint*>::fwd HardpointList;
+	typedef std::vector<Hardpoint*> HardpointList;
 
 private:
 

@@ -183,7 +183,7 @@ class Persister : public MessageDispatch::Receiver
 	/**
 	 * Misc game-specific persistence steps
 	 */
-	virtual void getMoneyFromOfflineObject(uint32 replyServer, NetworkId const & sourceObject, int amount, NetworkId const & replyTo, std::string const & successCallback, std::string const & failCallback, stdvector<int8>::fwd const & packedDictionary)=0;
+	virtual void getMoneyFromOfflineObject(uint32 replyServer, NetworkId const & sourceObject, int amount, NetworkId const & replyTo, std::string const & successCallback, std::string const & failCallback, std::vector<int8> const & packedDictionary)=0;
 
   protected:
 	Persister();

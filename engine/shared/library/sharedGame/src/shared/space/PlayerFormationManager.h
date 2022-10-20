@@ -8,6 +8,8 @@
 #ifndef INCLUDED_PlayerFormationManager_H
 #define INCLUDED_PlayerFormationManager_H
 
+#include <vector>
+
 //======================================================================
 
 class Vector;
@@ -19,7 +21,7 @@ class PlayerFormationManager
 {
 public:
 
-	typedef stdvector<std::string>::fwd  FormationNameList;
+	typedef std::vector<std::string>  FormationNameList;
 	struct FormationLocation;
 
 public:

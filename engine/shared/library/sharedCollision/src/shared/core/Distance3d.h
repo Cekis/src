@@ -10,6 +10,8 @@
 #ifndef INCLUDED_Distance3d_H
 #define INCLUDED_Distance3d_H
 
+#include <vector>
+
 class Vector;
 class Triangle3d;
 class Plane3d;
@@ -26,7 +28,7 @@ class Range;
 class Sphere;
 class MultiShape;
 
-typedef stdvector<Vector>::fwd VertexList;
+typedef std::vector<Vector> VertexList;
 
 #include "sharedCollision/CollisionEnums.h"
 #include "sharedMath/Vector.h"

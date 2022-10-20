@@ -8,6 +8,8 @@
 #ifndef INCLUDED_ShipComponentDescriptor_H
 #define INCLUDED_ShipComponentDescriptor_H
 
+#include <vector>
+
 //======================================================================
 
 #include "sharedGame/ShipComponentType.h"
@@ -21,8 +23,8 @@ class ShipComponentDescriptor
 {
 public:
 	
-	typedef stdvector<std::string>::fwd StringVector;
-	typedef stdmap<PersistentCrcString, ShipComponentDescriptor *>::fwd NameComponentMap;
+	typedef std::vector<std::string> StringVector;
+	typedef std::map<PersistentCrcString, ShipComponentDescriptor *> NameComponentMap;
 
 	static void install ();
 	static void fetchSharedObjectTemplates();

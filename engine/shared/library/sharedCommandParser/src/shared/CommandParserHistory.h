@@ -10,11 +10,15 @@
 
 // ======================================================================
 
+#include <queue>
+
+// ======================================================================
+
 class CommandParserHistory
 {
 public:
 
-	typedef stddeque<Unicode::String>::fwd   HistoryList_t;
+	typedef std::deque<Unicode::String>   HistoryList_t;
 
 	                         CommandParserHistory ();
 	                        ~CommandParserHistory ();

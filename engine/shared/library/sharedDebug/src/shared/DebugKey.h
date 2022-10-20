@@ -12,6 +12,10 @@
 
 // ======================================================================
 
+#include <vector>
+
+// ======================================================================
+
 class DebugKey
 {
 	friend class Os;
@@ -41,7 +45,7 @@ private:
 		bool operator <(const Flag &rhs) const;
 	};
 
-	typedef stdvector<Flag>::fwd FlagVector;
+	typedef std::vector<Flag> FlagVector;
 
 private:
 

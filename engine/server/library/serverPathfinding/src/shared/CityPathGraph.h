@@ -12,6 +12,8 @@
 #include "sharedPathfinding/DynamicPathGraph.h"
 
 #include "sharedObject/CachedNetworkId.h"
+#include <map>
+#include <set>
 
 class CityPathNode;
 class ServerObject;
@@ -23,7 +25,7 @@ class SphereTree;
 
 typedef SphereTree<PathNode *, PathNodeSphereAccessor> PathNodeTree;
 
-typedef stdvector<AxialBox>::fwd BoxList;
+typedef std::vector<AxialBox> BoxList;
 
 // ======================================================================
 // CityPathGraph is a DynamicPathGraph with some specializations that
@@ -90,7 +92,7 @@ protected:
 
 	PathNodeTree * m_nodeTree;
 	//@todo: order the CityPathNodes below in such a way as to make searching for the closest one quick
-	stdmap<Unicode::String, stdset<CityPathNode *>::fwd >::fwd * m_namedNodes;
+	std::map<Unicode::String, std::set<CityPathNode *> > * m_namedNodes;
 	int m_token;
 
 	CachedNetworkId m_creatorId;

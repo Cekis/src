@@ -8,6 +8,8 @@
 #ifndef INCLUDED_AbstractTableBuffer_H
 #define INCLUDED_AbstractTableBuffer_H
 
+#include <set>
+
 // ======================================================================
 
 #include "sharedFoundation/Tag.h"
@@ -25,7 +27,7 @@ class NetworkId;
 
 namespace DB
 {
-	typedef stdset<Tag>::fwd TagSet;
+	typedef std::set<Tag> TagSet;
 }
 
 // ======================================================================

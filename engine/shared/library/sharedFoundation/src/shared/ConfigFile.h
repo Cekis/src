@@ -12,6 +12,7 @@
 
 class StringCompare;
 
+#include <list>
 #include "sharedFoundation/Tag.h"
 
 // ======================================================================
@@ -43,7 +44,7 @@ public:
 		/// a buffer holding the entry string, which may be recast to other types
 		char       *m_entry;
 	};
-	typedef stdlist<Element *>::fwd ElementList;
+	typedef std::list<Element *> ElementList;
 
 	// -----------------------------------------------------------------------
 
@@ -80,7 +81,7 @@ public:
 		/// track whether this was added lazily (not explicitly in the config file)
 		bool m_lazyAdd;
 	};
-	typedef stdmap<const char *, Key *, StringCompare>::fwd KeyMap;
+	typedef std::map<const char *, Key *, StringCompare> KeyMap;
 
 	// -----------------------------------------------------------------------
 
@@ -124,7 +125,7 @@ public:
 		///String representation of the section's name
 		char* m_name;
 	};
-	typedef stdmap<const char *, Section *, StringCompare>::fwd SectionMap;
+	typedef std::map<const char *, Section *, StringCompare> SectionMap;
 
 public:
 	//public interface

@@ -11,6 +11,7 @@
 
 // ======================================================================
 
+#include <set>
 #include "Archive/AutoDeltaObserverOps.h"
 #include "Archive/ByteStream.h"
 #include "sharedDebug/Profiler.h"
@@ -92,7 +93,7 @@ namespace CellPermissions
 		std::string        m_permissionString;
 	};
 
-	typedef stdset<PermissionObject>::fwd PermissionList;
+	typedef std::set<PermissionObject> PermissionList;
 
 	//----------------------------------------------------------------------
 
@@ -109,7 +110,7 @@ namespace CellPermissions
 
 		void init(BuildingObject *building);
 		void getCellPermissions(ServerObject &obj);
-		void handleCellPermissionsUpdateIfNeeded(ServerObject &obj, unsigned int &permPos, stdvector<CreatureObject*>::fwd &expel);
+		void handleCellPermissionsUpdateIfNeeded(ServerObject &obj, unsigned int &permPos, std::vector<CreatureObject*> &expel);
 
 	private:
 		ProfilerAutoBlock m_profilerBlock;

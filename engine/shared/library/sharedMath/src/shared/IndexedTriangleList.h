@@ -9,6 +9,8 @@
 #ifndef INCLUDED_IndexedTriangleList_H
 #define INCLUDED_IndexedTriangleList_H
 
+#include <vector>
+
 // ======================================================================
 
 class Iff;
@@ -24,11 +26,11 @@ public:
 	explicit IndexedTriangleList(Iff &iff);
 	~IndexedTriangleList();
 
-	const stdvector<Vector>::fwd &getVertices() const;
-	const stdvector<int>::fwd    &getIndices() const;
+	const std::vector<Vector> &getVertices() const;
+	const std::vector<int>    &getIndices() const;
 
-	stdvector<Vector>::fwd &getVertices();
-	stdvector<int>::fwd    &getIndices();
+	std::vector<Vector> &getVertices();
+	std::vector<int>    &getIndices();
 
 	void load(Iff &iff);
 	void write(Iff &iff) const;
@@ -48,7 +50,7 @@ public:
 	void copy(const IndexedTriangleList *tris);
 	
 	bool collide(Vector const & start, Vector const & end, Vector & result) const;
-	bool collide(Vector const & start, Vector const & end, stdvector<int>::fwd const & indices, Vector & result) const;
+	bool collide(Vector const & start, Vector const & end, std::vector<int> const & indices, Vector & result) const;
 
 private:
 
@@ -60,14 +62,14 @@ private:
 
 	void load_0000(Iff &iff);
 
-	void addVertices(const Vector *vertices, int numberOfVertices, stdvector<int>::fwd &indices);
+	void addVertices(const Vector *vertices, int numberOfVertices, std::vector<int> &indices);
 
 private:
 
 	bool                    m_mergeVertices;
 	float                   m_epsilon;
-	stdvector<Vector>::fwd * const m_vertices;
-	stdvector<int>::fwd * const m_indices;
+	std::vector<Vector> * const m_vertices;
+	std::vector<int> * const m_indices;
 };
 
 // ======================================================================

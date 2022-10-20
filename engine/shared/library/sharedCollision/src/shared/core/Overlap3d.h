@@ -8,6 +8,7 @@
 #ifndef INCLUDED_Overlap3d_H
 #define INCLUDED_Overlap3d_H
 
+#include <vector>
 #include "sharedCollision/CollisionEnums.h"
 
 class Triangle3d;
@@ -26,7 +27,7 @@ class Range;
 class Cylinder;
 class MultiShape;
 
-typedef stdvector<Vector>::fwd VertexList;
+typedef std::vector<Vector> VertexList;
 
 // ======================================================================
 

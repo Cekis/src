@@ -10,6 +10,8 @@
 #ifndef INCLUDED_Containment3d_H
 #define INCLUDED_Containment3d_H
 
+#include <vector>
+
 class Vector;
 class Triangle3d;
 class Plane3d;
@@ -27,7 +29,7 @@ class MultiShape;
 
 #include "sharedCollision/CollisionEnums.h"
 
-typedef stdvector<Vector>::fwd  VectorVector;
+typedef std::vector<Vector>  VectorVector;
 
 // ----------
 // These methods should always be of the form

@@ -9,6 +9,8 @@
 #ifndef INCLUDED_UniqueNameList_H
 #define INCLUDED_UniqueNameList_H
 
+#include <vector>
+
 // ======================================================================
 
 class CrcLowerString;
@@ -56,7 +58,7 @@ private:
 
 	struct NameInfo;
 
-	typedef stdvector<boost::shared_ptr<NameInfo> >::fwd  NameInfoVector;
+	typedef std::vector<boost::shared_ptr<NameInfo> >  NameInfoVector;
 
 private:
 

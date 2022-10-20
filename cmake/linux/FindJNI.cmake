@@ -89,20 +89,49 @@ get_filename_component(java_install_version
   "[HKEY_LOCAL_MACHINE\\SOFTWARE\\JavaSoft\\Java Development Kit;CurrentVersion]" NAME)
 
 set(JAVA_AWT_LIBRARY_DIRECTORIES
+  /opt/java/lib
+  /opt/java
+  /opt/java/jre
+  /opt/java18/lib
+  /opt/java18
+  /opt/java18/jre
   "[HKEY_LOCAL_MACHINE\\SOFTWARE\\JavaSoft\\Java Development Kit\\1.4;JavaHome]/lib"
   "[HKEY_LOCAL_MACHINE\\SOFTWARE\\JavaSoft\\Java Development Kit\\1.3;JavaHome]/lib"
   "[HKEY_LOCAL_MACHINE\\SOFTWARE\\JavaSoft\\Java Development Kit\\${java_install_version};JavaHome]/lib"
   )
 
+file(TO_CMAKE_PATH "$ENV{JAVA32_HOME}" _JAVA32_HOME)
 file(TO_CMAKE_PATH "$ENV{JAVA_HOME}" _JAVA_HOME)
 
 JAVA_APPEND_LIBRARY_DIRECTORIES(JAVA_AWT_LIBRARY_DIRECTORIES
+  /opt/java
+  /opt/java/jre
+  /opt/java/jre/lib
+  /opt/java/jre/bin
+  /opt/java/jre/bin/classic
+  /opt/java18
+  /opt/java18/jre
+  /opt/java18/jre/lib
+  /opt/java18/jre/bin
+  /opt/java18/jre/bin/classic
+  ${_JAVA32_HOME}/jre/lib/{libarch}
+  ${_JAVA32_HOME}/jre/lib
+  ${_JAVA32_HOME}/jre/bin
+  ${_JAVA32_HOME}/jre/bin/classic
+  ${_JAVA32_HOME}/lib
+  ${_JAVA32_HOME}
   ${_JAVA_HOME}/jre/lib/{libarch}
   ${_JAVA_HOME}/jre/lib
   ${_JAVA_HOME}/jre/bin
   ${_JAVA_HOME}/jre/bin/classic
   ${_JAVA_HOME}/lib
   ${_JAVA_HOME}
+  /opt/java17/jre/lib/i386
+  /opt/java17/jre/lib
+  /opt/java17/jre
+  /opt/java17/lib
+  /usr/java/jre/lib/i386
+  /usr/java/jre/lib
   /usr/lib
   /usr/local/lib
   /usr/lib/jvm/java/lib
@@ -127,6 +156,11 @@ JAVA_APPEND_LIBRARY_DIRECTORIES(JAVA_AWT_LIBRARY_DIRECTORIES
   /usr/local/jre-1.7.0/lib/{libarch}
   /usr/local/jdk-1.6.0/jre/lib/{libarch}
   /usr/local/jre-1.6.0/lib/{libarch}
+  # Webupd8 Oracle Java Paths for Debian and Ubuntu
+  /usr/lib/jvm/java-9-oracle/jre/lib/{libarch}
+  /usr/lib/jvm/java-8-oracle/jre/lib/{libarch}
+  /usr/lib/jvm/java-7-oracle/jre/lib/{libarch}
+  /usr/lib/jvm/java-6-oracle/jre/lib/{libarch}
   )
 
 set(JAVA_JVM_LIBRARY_DIRECTORIES)
@@ -141,10 +175,15 @@ endforeach()
 
 
 set(JAVA_AWT_INCLUDE_DIRECTORIES
+  /opt/java/jre/include
   "[HKEY_LOCAL_MACHINE\\SOFTWARE\\JavaSoft\\Java Development Kit\\1.4;JavaHome]/include"
   "[HKEY_LOCAL_MACHINE\\SOFTWARE\\JavaSoft\\Java Development Kit\\1.3;JavaHome]/include"
   "[HKEY_LOCAL_MACHINE\\SOFTWARE\\JavaSoft\\Java Development Kit\\${java_install_version};JavaHome]/include"
+  ${_JAVA32_HOME}/include
   ${_JAVA_HOME}/include
+  /opt/java18/include
+  /opt/java/include
+  /opt/java17/jre/include
   /usr/include
   /usr/local/include
   /usr/lib/java/include
@@ -163,6 +202,12 @@ set(JAVA_AWT_INCLUDE_DIRECTORIES
   # OpenBSD specific path for default JVM
   /usr/local/jdk-1.7.0/include
   /usr/local/jdk-1.6.0/include
+  # Webupd8 Oracle Java Paths for Debian and Ubuntu
+  /usr/lib/jvm/java-9-oracle/include
+  /usr/lib/jvm/java-8-oracle/include
+  /usr/lib/jvm/java-7-oracle/include
+  /usr/lib/jvm/java-6-oracle/include
+  /opt/java/include
   )
 
 foreach(JAVA_PROG "${JAVA_RUNTIME}" "${JAVA_COMPILE}" "${JAVA_ARCHIVE}")

@@ -10,6 +10,8 @@
 #ifndef INCLUDED_ObjectList_H
 #define INCLUDED_ObjectList_H
 
+#include <vector>
+
 // ======================================================================
 
 class Object;
@@ -56,7 +58,7 @@ public:
 
 private:
 	
-	typedef stdvector<Object *>::fwd ObjectVector;
+	typedef std::vector<Object *> ObjectVector;
 	bool                             m_altering;
 	ObjectVector *                   m_objectVector;
 	ObjectVector *                   m_alterSafeObjectVector;

@@ -12,6 +12,7 @@
 
 // ======================================================================
 #include <cmath>
+#include <vector>
 
 class Vector
 {
@@ -125,7 +126,7 @@ public:
 	// const Vector      refract(const Vector &normal, real n1, real n2);
 
 	bool                 inPolygon (const Vector& v0, const Vector& v1, const Vector& v2) const;
-	bool                 inPolygon (const stdvector<Vector>::fwd &convexPolygonVertices) const;
+	bool                 inPolygon (const std::vector<Vector> &convexPolygonVertices) const;
 
 public:
 

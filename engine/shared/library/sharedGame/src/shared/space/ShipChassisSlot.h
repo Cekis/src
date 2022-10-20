@@ -8,6 +8,8 @@
 #ifndef INCLUDED_ShipChassisSlot_H
 #define INCLUDED_ShipChassisSlot_H
 
+#include <vector>
+
 //======================================================================
 
 #include "sharedGame/ShipChassisSlotType.h"
@@ -20,7 +22,7 @@ class ShipComponentDescriptor;
 class ShipChassisSlot
 {
 public:
-	typedef stdvector<CrcString *>::fwd CompatibilityVector;
+	typedef std::vector<CrcString *> CompatibilityVector;
 
 	ShipChassisSlot (ShipChassisSlotType::Type slotType, std::string const & compatibilities, int hitWeight, bool targetable);
 	ShipChassisSlot ();
