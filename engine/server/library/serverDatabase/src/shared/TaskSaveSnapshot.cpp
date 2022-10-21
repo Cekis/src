@@ -32,6 +32,9 @@ void TaskSaveSnapshot::onComplete()
 {
 	m_snapshot->saveCompleted();
 	Persister::getInstance().saveCompleted(m_snapshot);
+	// delete the snapshot as we won't be needing it again.
+	delete m_snapshot;
+	m_snapshot = nullptr;
 }
 
 // ======================================================================

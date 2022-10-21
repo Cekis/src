@@ -389,12 +389,19 @@ Appearance *AppearanceTemplateList::createAppearance(const char *const fileName)
 {
 	DEBUG_FATAL(!ms_installed, ("not installed"));
 
+	if(strstr(fileName, ".prt") || strstr(fileName, ".sat")) return NULL;
+
 #ifdef _DEBUG
 	DataLint::pushAsset(fileName);
 #endif
 
 	//-- get the appearance template
 	const AppearanceTemplate *const appearanceTemplate = fetch(fileName);
+
+	if(!appearanceTemplate){
+        DEBUG_WARNING(true, ("Appearance template for %s could not be fetched - is it missing?", fileName));
+	    return NULL;
+	}
 
 	//-- creating the appearance will increment the reference count
 	Appearance *const appearance = appearanceTemplate->createAppearance();
@@ -586,7 +593,11 @@ AppearanceTemplate *AppearanceTemplateListNamespace::create(const char *const fi
 		{
 			char tagString[5];
 			ConvertTagToString(tag, tagString);
-			DEBUG_FATAL(true, ("AppearanceTemplate binding %s not found in file %s", tagString, actualFileName.getString()));
+			// Changing from DEBUG_FATAL to DEBUG_WARNING because the server is now using the client files and the client has
+			// extra files it needs that the server doesn't, but those files give the server grief if they're processed.  Let's
+			// not force a crash in DEBUG mode if it encounters one of them, but let's still get output in the case we truly
+			// need to fix that file.
+			DEBUG_WARNING(true, ("AppearanceTemplate binding %s not found in file %s", tagString, actualFileName.getString()));
 		}
 	}
 

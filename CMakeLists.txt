@@ -69,10 +69,10 @@ elseif (UNIX)
     # linker flags
     if (${CMAKE_BUILD_TYPE} STREQUAL "RELWITHDEBINFO" OR ${CMAKE_BUILD_TYPE} STREQUAL "MINSIZEREL")
         set(CMAKE_SHARED_LINKER_FLAGS "-Wl,-z,norelro,-O3,--sort-common,--as-needed,--relax,-z,combreloc,-z,global,--no-omagic")
-	set(CMAKE_EXE_LINKER_FLAGS "-Wl,-z,norelro,-O3,--sort-common,--as-needed,--relax,-z,combreloc,-z,global,--no-omagic")
+		set(CMAKE_EXE_LINKER_FLAGS "-Wl,-z,norelro,-O3,--sort-common,--as-needed,--relax,-z,combreloc,-z,global,--no-omagic")
     else ()
         set(CMAKE_SHARED_LINKER_FLAGS "-Wl,-z,norelro,-O3,--sort-common,--as-needed,--relax,-z,combreloc,-z,global,--no-omagic,-x,-s")
-	set(CMAKE_EXE_LINKER_FLAGS "-Wl,-z,norelro,-O3,--sort-common,--as-needed,--relax,-z,combreloc,-z,global,--no-omagic,-x,-s")
+		set(CMAKE_EXE_LINKER_FLAGS "-Wl,-z,norelro,-O3,--sort-common,--as-needed,--relax,-z,combreloc,-z,global,--no-omagic,-x,-s")
     endif ()
 
     # don't put anything too crazy in debug...and any common flags go into CMAKE_CXX_FLAGS
@@ -82,7 +82,7 @@ elseif (UNIX)
     set(CMAKE_CXX_FLAGS_RELEASE "-DDEBUG_LEVEL=0 -DPRODUCTION=1")
 
     # we use fewer, if any, crazy optimizations for profile generation, and likewise release flags for the minsizerel
-    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELEASE}")
+    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELEASE} -g3")
     set(CMAKE_CXX_FLAGS_MINSIZEREL "${CMAKE_CXX_FLAGS_RELEASE}")
 
     # Ofast doesn't work with gcc builds
@@ -96,16 +96,16 @@ elseif (UNIX)
         set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -ggdb")
 
         # RELWITHDEBINFO is used for building bins that produce profdata files
-	# we only need the basics of our heavy optimizations here, i think - that and one of these flags
-	# breaks JNI when we profile
-        set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS} -Ofast -finline-hint-functions -fprofile-instr-generate")
+		# we only need the basics of our heavy optimizations here, i think - that and one of these flags
+		# breaks JNI when we profile
+        set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS} -g3 -Ofast -finline-hint-functions -fprofile-instr-generate")
 
         # MINSIZEREL is used for profiled, flto builds
         set(CMAKE_CXX_FLAGS_MINSIZEREL "${CMAKE_CXX_FLAGS_RELEASE} -flto -fwhole-program-vtables")
     elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
         # O3 and Ofast include one or more flags that cause java to crash when using gcc6
         set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O2 -fno-signed-zeros -freciprocal-math -fno-unroll-loops -fno-tree-loop-optimize -fno-plt")
-        set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELEASE} -Og")
+        set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELEASE} -Og -ggdb")
         set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Og")
     elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Intel")
         set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
