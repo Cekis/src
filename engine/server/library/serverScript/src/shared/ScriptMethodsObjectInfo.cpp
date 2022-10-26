@@ -3502,7 +3502,9 @@ jboolean JNICALL ScriptMethodsObjectInfoNamespace::sendScriptVarsToProxies(JNIEn
 				}
 			}
 		}
+		return JNI_TRUE;
 	}
+	return JNI_FALSE;
 }
 
 //-----------------------------------------------------------------------
