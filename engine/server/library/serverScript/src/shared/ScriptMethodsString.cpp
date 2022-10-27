@@ -102,7 +102,7 @@ jstring JNICALL ScriptMethodsStringNamespace::getString(JNIEnv *env, jobject sel
 	}
 	else
 	{
-		WARNING(true, ("JavaLibrary::log failed to localize the stringId(%s, %s)", table.c_str(), asciiId.c_str()));
+		DEBUG_WARNING(true, ("JavaLibrary::log failed to localize the stringId(%s, %s)", table.c_str(), asciiId.c_str()));
 	}
 
 	return 0;
