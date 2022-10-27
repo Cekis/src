@@ -438,7 +438,7 @@ void SkillObject::connectLinks(DataTable &dataTable, const std::string & parentN
 			}
 			else
 			{
-				WARNING (true, ("Could not find skill %s in DataTable", nextSkillName.c_str()));
+				WARNING (!strstr(nextSkillName.c_str(), "DEPRECATED_SKILLS"), ("Could not find skill %s in DataTable", nextSkillName.c_str()));
 			}
 		}
 	}
