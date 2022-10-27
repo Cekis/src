@@ -264,6 +264,9 @@ int compileTemplate(const char *filename)
 TpfFile templateFile;
 
 	Filename templateFileName(NULL, NULL, filename, TEMPLATE_EXTENSION);
+
+	fprintf(stdout, "Generating Template File: %s\n", filename);
+	
 	return templateFile.makeIffFiles(templateFileName);
 }	// compileTemplate
 
