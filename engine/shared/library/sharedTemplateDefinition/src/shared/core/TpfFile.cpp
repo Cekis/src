@@ -1563,10 +1563,11 @@ const char * TpfFile::parseFilenameParameter(StringParam & param, const char *li
 		{
 			if (!islower(lowername[i]) &&
 				!isdigit(lowername[i]) &&
-				lowername[i] != '_')
+				lowername[i] != '_' &&
+				lowername[i] != '-')
 			{
 				m_fp.printError("Illegal character in filename, only lowercase, "
-					"numbers, and \"_\" allowed");
+					"numbers, dash (\"-\") and/or underscore (\"_\") are allowed");
 				return CHAR_ERROR;
 			}
 		}
