@@ -26,12 +26,15 @@
 # If ORACLE_HOME not defined, assume Oracle libraries not available
 if(DEFINED ENV{ORACLE_HOME})
 
+
   set(ORACLE_HOME $ENV{ORACLE_HOME})
+  message("ORACLE_HOME=${ORACLE_HOME}")
+
 
   find_path(ORACLE_INCLUDE_DIR
     NAMES oci.h
     PATHS
-    /usr/include/oracle/18.3/client
+    /usr/include/oracle/21/client
     ${ORACLE_HOME}/rdbms/public
     ${ORACLE_HOME}/include
     ${ORACLE_HOME}/sdk/include  # Oracle SDK
@@ -39,8 +42,8 @@ if(DEFINED ENV{ORACLE_HOME})
 
 
   set(ORACLE_OCI_NAMES clntsh libclntsh oci)
-  set(ORACLE_NNZ_NAMES nnz18 libnnz18 ociw32)
-  set(ORACLE_OCCI_NAMES libocci occi)
+  set(ORACLE_NNZ_NAMES nnz21 libnnz21 ociw32)
+  set(ORACLE_OCCI_NAMES libocci occi oraocci10 oraocci11 oraocci12 libocci.so.19.1 oraocci19)
 
 
   set(ORACLE_LIB_DIR 
@@ -89,4 +92,3 @@ find_package_handle_standard_args(ORACLE DEFAULT_MSG ORACLE_LIBRARY ORACLE_INCLU
 
 
 mark_as_advanced(ORACLE_INCLUDE_DIR ORACLE_LIBRARY)
-
